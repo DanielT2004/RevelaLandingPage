@@ -1,0 +1,39 @@
+"use client";
+
+import { cn } from "@/lib/cn";
+import { useInView } from "@/components/motion/useInView";
+
+/**
+ * A bar representing hours of manual editing that collapses to a small
+ * terracotta sliver (≈10 min) when scrolled into view — the freed space reads
+ * as time saved. Snaps to the collapsed state under reduced motion (transitions
+ * are neutralized globally).
+ */
+export function TimeCollapseBar({ className }: { className?: string }) {
+  const { ref, inView } = useInView<HTMLDivElement>({ amount: 0.5 });
+
+  return (
+    <div ref={ref} className={cn("w-full", className)}>
+      <div className="mb-2 flex items-center justify-between font-mono text-xs uppercase tracking-[0.12em]">
+        <span className="text-cream/50">Editing by hand</span>
+        <span className="text-sage-400">Time saved</span>
+      </div>
+
+      <div className="relative h-4 w-full overflow-hidden rounded-full bg-sage/15">
+        <div
+          className="absolute inset-y-0 left-0 rounded-full bg-terracotta transition-[width] duration-[1400ms] ease-[var(--ease-inout)]"
+          style={{ width: inView ? "7%" : "100%" }}
+        />
+      </div>
+
+      <div className="mt-2.5 flex items-center justify-between">
+        <span className="tnum font-mono text-sm font-medium text-terracotta-400">
+          ≈ 10 min
+        </span>
+        <span className="rounded-full bg-sage/20 px-2.5 py-1 font-mono text-xs font-semibold text-sage-400">
+          2h 37m saved
+        </span>
+      </div>
+    </div>
+  );
+}

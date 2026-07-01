@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+/* =====================================================================
+   Segma design tokens — Tailwind v4 CSS-first config.
+   Warm, premium, anti-cliché. Terracotta + sage are used as product-UI
+   accents so the page reads as a video editor, never a food website.
+   ===================================================================== */
+@theme {
+  /* Surfaces */
+  --color-cream: #f7f3ec;
+  --color-cream-50: #fbf9f4;
+  --color-cream-100: #f2ede3;
+  --color-cream-200: #ece5d8;
+  --color-cream-300: #e2d9c9;
+
+  /* Ink */
+  --color-charcoal: #2e2a26;
+  --color-charcoal-700: #3a352f;
+  --color-charcoal-800: #26221f;
+  --color-charcoal-900: #1b1815;
+
+  /* Terracotta — primary accent / CTA */
+  --color-terracotta: #b5654a;
+  --color-terracotta-600: #a4573e;
+  --color-terracotta-400: #c98368;
+  --color-terracotta-100: #ecd7cd;
+  --color-terracotta-50: #f5e6df;
+
+  /* Sage — secondary / success */
+  --color-sage: #5f7355;
+  --color-sage-600: #4f6147;
+  --color-sage-400: #869a7c;
+  --color-sage-100: #dbe2d5;
+  --color-sage-50: #eaefe6;
+
+  /* Warm gray — muted text. Base darkened to #6b6259 so muted body copy clears
+     WCAG AA (≥4.5:1) on the cream surfaces; lighter tints kept for decorative use. */
+  --color-warmgray: #6b6259;
+  --color-warmgray-400: #8a8178;
+  --color-warmgray-300: #a79e93;
+
+  /* Type — wired to next/font CSS variables (set on <html>) */
+  --font-display: var(--font-fraunces), ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, "SFMono-Regular", Menlo,
+    monospace;
+
+  /* Motion */
+  --ease-segma: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Layout */
+  --spacing-section: clamp(4.5rem, 9vw, 8rem);
+}
+
+/* ---------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+  --marquee-duration: 42s;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-terracotta);
+  color: #fff;
+}
+
+/* Visible, on-brand focus ring for keyboard users only */
+:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.on-dark :focus-visible,
+.on-dark:focus-visible {
+  outline-color: var(--color-terracotta-400);
+}
+
+/* Skip link */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  transform: translateY(-160%);
+  background: var(--color-charcoal);
+  color: var(--color-cream);
+  padding: 0.6rem 1rem;
+  border-radius: 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: transform 0.2s var(--ease-segma);
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------------
+   Grain — a ~3% film grain over the warm surfaces adds analog texture.
+   Applied via a fixed, non-interactive overlay.
+   --------------------------------------------------------------------- */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("/noise.svg");
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  mix-blend-mode: multiply;
+}
+
+/* ---------------------------------------------------------------------
+   Scroll reveal — CSS-driven, toggled by IntersectionObserver setting
+   data-inview="true". Progressive enhancement: content is visible by
+   default and only hidden once the `.js` flag is present on <html>
+   (set by a blocking inline script), so no-JS never hides content.
+   --------------------------------------------------------------------- */
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s var(--ease-segma),
+    transform 0.6s var(--ease-segma);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.js .reveal[data-inview="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------------------------------------------------------------------
+   Marquee — infinite horizontal scroll of a duplicated track.
+   --------------------------------------------------------------------- */
+@keyframes segma-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: segma-marquee var(--marquee-duration, 42s) linear infinite;
+}
+.marquee-reverse {
+  animation-direction: reverse;
+}
+.marquee-mask:hover .marquee-track,
+.marquee-mask:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+/* Explicit pause toggle (keyboard/touch accessible — WCAG 2.2.2). */
+.marquee-paused .marquee-track {
+  animation-play-state: paused !important;
+}
+
+/* Slow, ambient loops on the mockups (self-trim, waveform pulse, etc.) */
+@keyframes segma-trim {
+  0%,
+  12% {
+    transform: scaleX(1);
+  }
+  40%,
+  100% {
+    transform: scaleX(var(--trim-scale, 0.62));
+  }
+}
+@keyframes segma-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes segma-playhead {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Reduced motion — instant, static, no loops. Content appears fully.
+   --------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .marquee-track,
+  [data-loop] {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Utility: tabular figures for timecodes/counters */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Waitlist success — a gentle rise + a sage check that draws its stroke. */
+@keyframes segma-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.success-pop {
+  animation: segma-pop 0.45s var(--ease-segma) both;
+}
+@keyframes segma-check-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.check-draw {
+  stroke-dasharray: 26;
+  stroke-dashoffset: 26;
+  animation: segma-check-draw 0.5s var(--ease-segma) 0.12s forwards;
+}
+
+/* Spinner */
+@keyframes segma-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: segma-spin 0.7s linear infinite;
+}
