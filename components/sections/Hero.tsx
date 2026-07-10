@@ -9,7 +9,7 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative overflow-hidden bg-cream pb-16 pt-28 sm:pt-32 lg:pb-24"
+      className="relative overflow-hidden bg-cream pb-16 pt-24 sm:pt-32 lg:pb-24"
     >
       {/* Soft warm wash — no orbs, just a faint terracotta glow off the top. */}
       <div
@@ -17,7 +17,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 [background:radial-gradient(60%_45%_at_50%_-5%,rgba(181,101,74,0.07),transparent_70%)]"
       />
 
-      <Container className="relative grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+      <Container className="relative grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
         <div className="max-w-xl">
           <Reveal>
             <Eyebrow>{HERO.eyebrow}</Eyebrow>
@@ -26,17 +26,28 @@ export function Hero() {
           <Reveal delay={70}>
             <h1
               id="hero-heading"
-              className="font-display text-[2.7rem] font-semibold leading-[1.04] tracking-[-0.02em] text-charcoal sm:text-[3.4rem] lg:text-[3.9rem]"
+              className="relative font-display text-[2.7rem] font-semibold leading-[1.04] tracking-[-0.02em] text-charcoal sm:text-[3.4rem] lg:text-[3.9rem]"
             >
               Edit your food videos in{" "}
-              <span className="text-terracotta">10 minutes</span>,{" "}
+              <span className="whitespace-nowrap text-terracotta">
+                10 minutes
+              </span>
+              ,{" "}
               <span className="whitespace-nowrap text-warmgray">
                 not{" "}
-                <span className="line-through decoration-terracotta/50 decoration-2">
+                <span className="relative whitespace-nowrap">
                   3 hours
+                  {/* The "cut": a terracotta strike that draws itself as the
+                      playhead sweeps past. Shown fully under reduced motion. */}
+                  <span
+                    aria-hidden
+                    className="headline-strike absolute left-0 top-1/2 h-[3px] w-full rounded-full bg-terracotta/55"
+                  />
                 </span>
               </span>
               .
+              {/* Playhead that sweeps the headline once on load. */}
+              <span aria-hidden className="headline-playhead" />
             </h1>
           </Reveal>
 
@@ -58,9 +69,11 @@ export function Hero() {
           </Reveal>
         </div>
 
-        <Reveal delay={160} className="w-full justify-self-center lg:justify-self-end">
+        {/* Not scroll-gated: this is first-paint content and must be visible
+            (and peeking into the fold) on mobile immediately. */}
+        <div className="w-full justify-self-center lg:justify-self-end">
           <TransformationPhone />
-        </Reveal>
+        </div>
       </Container>
     </section>
   );

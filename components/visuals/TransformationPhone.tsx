@@ -24,7 +24,10 @@ const item: Variants = {
  * Renders the finished state instantly under prefers-reduced-motion.
  */
 export function TransformationPhone() {
-  const { ref, inView } = useInView<HTMLDivElement>({ amount: 0.3 });
+  const { ref, inView } = useInView<HTMLDivElement>({
+    amount: 0.1,
+    rootMargin: "0px",
+  });
   const reduce = useReducedMotion();
   const play = reduce ? true : inView;
 

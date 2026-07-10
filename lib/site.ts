@@ -36,6 +36,7 @@ export const SITE = {
 export const NAV_LINKS = [
   { label: "The problem", href: "#problem" },
   { label: "How it works", href: "#how-it-works" },
+  { label: "Try it", href: "#try-swipe" },
   { label: "Features", href: "#features" },
 ] as const;
 
@@ -85,6 +86,28 @@ export const HOW_IT_WORKS = {
       body: "Refine it in a fast, fun, swipe-based flow — then export and post.",
     },
   ],
+} as const;
+
+export const TRY_SWIPE = {
+  eyebrow: "Try the flow",
+  headline: "Editing that feels like a game.",
+  subhead:
+    "This is the actual review flow. Swipe right to keep a clip, left to cut it — or use the buttons. Five clips, ten seconds.",
+  keepLabel: "Keep",
+  cutLabel: "Cut",
+  /** Mock clips for the demo deck. `verdict` is the “right” call, used only to
+   *  colour the little hint chip — the user can swipe either way. */
+  clips: [
+    { label: "Sizzle close-up", time: "00:06", hint: "Strong hook", verdict: "keep" },
+    { label: "Long intro ramble", time: "00:41", hint: "Slow — cut it", verdict: "cut" },
+    { label: "The plating reveal", time: "00:09", hint: "Keep this", verdict: "keep" },
+    { label: "Dead air / re-take", time: "00:18", hint: "Cut it", verdict: "cut" },
+    { label: "First bite reaction", time: "00:07", hint: "Keep this", verdict: "keep" },
+  ],
+  doneTitle: "Draft ready.",
+  doneBody: "That’s the whole edit — about ten minutes of work, done in ten seconds.",
+  doneCta: "Join the waitlist",
+  replay: "Run it again",
 } as const;
 
 export const FEATURES = {
@@ -188,9 +211,8 @@ export const FOOTER = {
   links: [
     { label: "Home", href: "#top" },
     { label: "How it works", href: "#how-it-works" },
+    { label: "Try it", href: "#try-swipe" },
     { label: "Waitlist", href: "#waitlist" },
-    { label: "Privacy", href: "#" },
-    { label: "Terms", href: "#" },
   ],
   contactLabel: "Questions?",
   bottomLine: "© 2026 Segma · Made for creators who’d rather be cooking.",

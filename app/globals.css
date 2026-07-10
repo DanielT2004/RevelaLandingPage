@@ -235,6 +235,86 @@ body {
   }
 }
 
+/* ---------------------------------------------------------------------
+   Hero headline "self-cut" — a sage playhead sweeps the headline once on
+   load, and a terracotta strike draws itself through "3 hours" as it passes.
+   Both land on their finished state under reduced motion (blanket rule above
+   collapses the duration), so the strike still reads as a cut.
+   --------------------------------------------------------------------- */
+@keyframes segma-headline-sweep {
+  0% {
+    left: -3%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    left: 103%;
+    opacity: 0;
+  }
+}
+.headline-playhead {
+  position: absolute;
+  top: 0.08em;
+  bottom: 0.08em;
+  left: -3%;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--color-sage-400);
+  box-shadow: 0 0 14px 1px
+    color-mix(in srgb, var(--color-sage-400) 55%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  animation: segma-headline-sweep 1.15s var(--ease-inout) 0.75s both;
+}
+@keyframes segma-strike-draw {
+  from {
+    transform: translateY(-50%) scaleX(0);
+  }
+  to {
+    transform: translateY(-50%) scaleX(1);
+  }
+}
+.headline-strike {
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left center;
+  animation: segma-strike-draw 0.3s var(--ease-inout) 1.15s both;
+}
+
+/* Swipe-deck hint arrows — a gentle horizontal nudge loop pointing the way. */
+@keyframes segma-nudge-left {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(-3px);
+    opacity: 1;
+  }
+}
+@keyframes segma-nudge-right {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(3px);
+    opacity: 1;
+  }
+}
+.hint-nudge-left {
+  animation: segma-nudge-left 1.5s var(--ease-inout) infinite;
+}
+.hint-nudge-right {
+  animation: segma-nudge-right 1.5s var(--ease-inout) infinite;
+}
+
 /* Utility: tabular figures for timecodes/counters */
 .tnum {
   font-variant-numeric: tabular-nums;

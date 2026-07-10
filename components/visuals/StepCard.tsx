@@ -16,7 +16,9 @@ export function StepCard({
 }) {
   return (
     <div className={cn("flex flex-col", className)}>
-      <div className="relative mb-6 rounded-2xl border border-charcoal/8 bg-charcoal-900 p-3.5 shadow-[0_24px_50px_-30px_rgba(27,24,21,0.6)]">
+      {/* Fixed panel height keeps all three step titles on the same baseline,
+          regardless of how tall each mock is. */}
+      <div className="relative mb-6 flex min-h-[17rem] items-center rounded-2xl border border-charcoal/8 bg-charcoal-900 p-3.5 shadow-[0_24px_50px_-30px_rgba(27,24,21,0.6)]">
         {children}
       </div>
       <div className="flex items-baseline gap-3">

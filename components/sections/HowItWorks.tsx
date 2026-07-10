@@ -1,14 +1,16 @@
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { RevealGroup } from "@/components/motion/RevealGroup";
+import { StepsScrubber } from "@/components/visuals/StepsScrubber";
 import { StepCard } from "@/components/visuals/StepCard";
 import { ClipCard } from "@/components/visuals/ClipCard";
 import { Timeline } from "@/components/visuals/Timeline";
 import { SwipeCard } from "@/components/visuals/SwipeCard";
 import { HOW_IT_WORKS } from "@/lib/site";
 
-// Each step's dark "screenshot" panel, kept to a consistent height.
-const panelClass = "flex min-h-[9.5rem] flex-col justify-center gap-1.5";
+// Each step's dark "screenshot" panel content. The panel height is fixed by
+// StepCard, so these just center within it.
+const panelClass = "flex w-full flex-col justify-center gap-1.5";
 
 const visuals = [
   <div key="1" className={panelClass}>
@@ -40,13 +42,15 @@ export function HowItWorks() {
         </Reveal>
       </div>
 
-      <RevealGroup className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
-        {HOW_IT_WORKS.steps.map((step, i) => (
-          <StepCard key={step.n} n={step.n} title={step.title} body={step.body}>
-            {visuals[i]}
-          </StepCard>
-        ))}
-      </RevealGroup>
+      <StepsScrubber>
+        <RevealGroup className="grid gap-10 md:grid-cols-3 md:gap-8">
+          {HOW_IT_WORKS.steps.map((step, i) => (
+            <StepCard key={step.n} n={step.n} title={step.title} body={step.body}>
+              {visuals[i]}
+            </StepCard>
+          ))}
+        </RevealGroup>
+      </StepsScrubber>
     </Section>
   );
 }

@@ -15,7 +15,27 @@ export function TimeCollapseBar({ className }: { className?: string }) {
   return (
     <div ref={ref} className={cn("w-full", className)}>
       <div className="mb-2 flex items-center justify-between font-mono text-xs uppercase tracking-[0.12em]">
-        <span className="text-cream/50">Editing by hand</span>
+        {/* Label tracks the bar: it starts as the manual time, then reads as
+            the Segma result once collapsed — so it never contradicts the bar. */}
+        <span className="relative text-cream/50">
+          <span
+            className={cn(
+              "transition-opacity duration-500",
+              inView ? "opacity-0" : "opacity-100"
+            )}
+          >
+            Editing by hand
+          </span>
+          <span
+            aria-hidden={!inView}
+            className={cn(
+              "absolute left-0 top-0 text-terracotta-400 transition-opacity duration-500",
+              inView ? "opacity-100" : "opacity-0"
+            )}
+          >
+            With Segma
+          </span>
+        </span>
         <span className="text-sage-400">Time saved</span>
       </div>
 
