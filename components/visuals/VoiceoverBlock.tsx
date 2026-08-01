@@ -15,11 +15,16 @@ export function VoiceoverBlock({ className }: { className?: string }) {
       )}
     >
       <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-        {/* Before — talking head */}
+        {/* Before — talking head, wearing the app's verdict chip */}
         <div className="flex-1 rounded-xl border border-cream/10 bg-charcoal-800 p-3">
-          <span className="font-mono text-[0.58rem] uppercase tracking-[0.12em] text-cream/40">
-            Talking to camera
-          </span>
+          <div className="flex items-center justify-between gap-2">
+            <span className="font-mono text-[0.58rem] uppercase tracking-[0.12em] text-cream/40">
+              Talking to camera
+            </span>
+            <span className="rounded-full bg-terracotta px-1.5 py-0.5 text-[0.5rem] font-semibold text-cream">
+              Good for voiceover
+            </span>
+          </div>
           <div className="mt-2 flex items-center gap-2">
             <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full bg-charcoal-900">
               <svg
@@ -74,7 +79,7 @@ export function VoiceoverBlock({ className }: { className?: string }) {
             <span className="h-6 flex-1 rounded bg-cream/[0.07]" />
             <span className="h-6 flex-1 rounded bg-cream/[0.07]" />
             <span className="h-6 flex-1 rounded bg-cream/[0.07]" />
-            <span className="flex h-6 items-center rounded bg-terracotta/20 px-1.5 font-mono text-[0.5rem] uppercase text-terracotta-400">
+            <span className="flex h-6 items-center rounded bg-ochre/25 px-1.5 font-mono text-[0.5rem] uppercase text-ochre-400">
               B-roll
             </span>
           </div>

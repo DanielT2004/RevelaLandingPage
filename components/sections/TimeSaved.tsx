@@ -56,7 +56,7 @@ export function TimeSaved() {
 
             <div className="text-center">
               <p className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-sage-400">
-                With Segma
+                With Revela
               </p>
               <p className="mt-1.5 font-display text-4xl font-semibold text-terracotta-400 sm:text-5xl">
                 {TIME_SAVED.afterLabel}

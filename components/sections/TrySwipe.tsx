@@ -1,6 +1,6 @@
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
-import { SwipeDeck } from "@/components/visuals/SwipeDeck";
+import { DeckSwitcher } from "@/components/visuals/DeckSwitcher";
 import { TRY_SWIPE } from "@/lib/site";
 
 export function TrySwipe() {
@@ -27,7 +27,7 @@ export function TrySwipe() {
         </div>
 
         <Reveal delay={100} className="w-full">
-          <SwipeDeck />
+          <DeckSwitcher />
         </Reveal>
       </div>
     </Section>

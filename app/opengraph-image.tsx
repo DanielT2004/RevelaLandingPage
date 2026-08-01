@@ -1,8 +1,9 @@
 import { ImageResponse } from "next/og";
+import { OG_MARK_DATA_URI } from "@/lib/og-mark";
 
 export const runtime = "edge";
 export const alt =
-  "Segma — your raw clips in, a ready-to-post TikTok out. Edit food videos in ~10 minutes.";
+  "Revela — you film yourself talking, it cuts like you would. Reviews, Shop promos, food and more in ~10 minutes.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -44,24 +45,10 @@ export default function OpengraphImage() {
 
         {/* Brand */}
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <div
-            style={{
-              width: 52,
-              height: 52,
-              borderRadius: 14,
-              background: "#B5654A",
-              color: "#F7F3EC",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 30,
-              fontWeight: 700,
-            }}
-          >
-            S
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img alt="" width={52} height={52} src={OG_MARK_DATA_URI} />
           <div style={{ display: "flex", color: "#F7F3EC", fontSize: 30, fontWeight: 600 }}>
-            Segma
+            Revela
           </div>
         </div>
 
@@ -80,12 +67,12 @@ export default function OpengraphImage() {
           >
             iOS · Launching soon
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap", fontSize: 66, lineHeight: 1.08, color: "#F7F3EC", fontWeight: 600 }}>
-            Your raw clips in. A{" "}
+          <div style={{ display: "flex", flexWrap: "wrap", fontSize: 58, lineHeight: 1.12, color: "#F7F3EC", fontWeight: 600 }}>
+            You film yourself talking.{" "}
             <span style={{ color: "#C98368", marginLeft: 14 }}>
-              ready-to-post
+              Revela cuts it
             </span>
-            <span style={{ marginLeft: 14 }}>TikTok out.</span>
+            <span style={{ marginLeft: 14 }}>like you would.</span>
           </div>
           <div
             style={{
@@ -96,7 +83,7 @@ export default function OpengraphImage() {
               fontFamily: "system-ui, sans-serif",
             }}
           >
-            2–3 hours of editing, down to about 10 minutes.
+            Reviews · Shop promos · food · vlogs — about 10 minutes, not 3 hours.
           </div>
         </div>
 

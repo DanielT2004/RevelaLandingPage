@@ -1,6 +1,7 @@
 import { cn } from "@/lib/cn";
 
-/** The swipe-to-finish review card: a scene preview + keep / redo actions. */
+/** A static mini triage card, matching the app's Sort stage: AI verdict chip,
+ *  scene + duration, and the cut / keep actions. */
 export function SwipeCard({ className }: { className?: string }) {
   return (
     <div
@@ -20,11 +21,14 @@ export function SwipeCard({ className }: { className?: string }) {
         >
           <path d="M8 5v14l11-7z" fill="currentColor" />
         </svg>
-        <span className="absolute left-2 top-2 rounded bg-charcoal-900/70 px-1.5 py-0.5 font-mono text-[0.55rem] text-sage-400">
-          Voiceover · your voice
+        <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-sage px-2 py-0.5 text-[0.55rem] font-semibold text-cream">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+            <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2l-6.1 3.4 1.4-6.8L2.2 9.1l6.9-.8z" />
+          </svg>
+          Strong keep
         </span>
         <span className="tnum absolute bottom-2 right-2 rounded bg-charcoal-900/70 px-1.5 py-0.5 font-mono text-[0.55rem] text-cream/60">
-          Scene 03 · 00:12
+          Reaction · 7s
         </span>
       </div>
 
@@ -32,14 +36,13 @@ export function SwipeCard({ className }: { className?: string }) {
         <span className="inline-flex items-center gap-1.5 rounded-full border border-terracotta/40 px-3 py-1.5 text-[0.72rem] font-medium text-terracotta-400">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
             <path
-              d="M3 12a9 9 0 1 0 3-6.7M3 4v4h4"
+              d="M6 6l12 12M18 6L6 18"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.2"
               strokeLinecap="round"
-              strokeLinejoin="round"
             />
           </svg>
-          Redo
+          Cut
         </span>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-sage px-3.5 py-1.5 text-[0.72rem] font-semibold text-cream">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>

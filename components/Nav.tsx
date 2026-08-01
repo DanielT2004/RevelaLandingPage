@@ -33,7 +33,7 @@ export function Nav() {
           className="flex items-center gap-2.5 font-display text-lg font-semibold text-charcoal"
         >
           <Logomark />
-          Segma
+          Revela
         </a>
 
         <nav

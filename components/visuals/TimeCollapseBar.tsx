@@ -16,7 +16,7 @@ export function TimeCollapseBar({ className }: { className?: string }) {
     <div ref={ref} className={cn("w-full", className)}>
       <div className="mb-2 flex items-center justify-between font-mono text-xs uppercase tracking-[0.12em]">
         {/* Label tracks the bar: it starts as the manual time, then reads as
-            the Segma result once collapsed — so it never contradicts the bar. */}
+            the Revela result once collapsed — so it never contradicts the bar. */}
         <span className="relative text-cream/50">
           <span
             className={cn(
@@ -33,7 +33,7 @@ export function TimeCollapseBar({ className }: { className?: string }) {
               inView ? "opacity-100" : "opacity-0"
             )}
           >
-            With Segma
+            With Revela
           </span>
         </span>
         <span className="text-sage-400">Time saved</span>

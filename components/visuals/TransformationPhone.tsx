@@ -19,7 +19,7 @@ const item: Variants = {
 };
 
 /**
- * Hero "wow": raw clips fly in, collapse into a Segma cut with a HOOK flag,
+ * Hero "wow": raw clips fly in, collapse into a Revela cut with a HOOK flag,
  * and the edit-time counter drops from ~3 hours to ~10 minutes.
  * Renders the finished state instantly under prefers-reduced-motion.
  */
@@ -34,19 +34,22 @@ export function TransformationPhone() {
   return (
     <div ref={ref}>
       <PhoneFrame>
+        {/* initial is always "hidden" so server and client HTML match; under
+            reduced motion `play` is immediately true, giving one gentle
+            entrance instead of a hydration-mismatched instant state. */}
         <motion.div
           variants={container}
-          initial={reduce ? false : "hidden"}
+          initial="hidden"
           animate={play ? "show" : "hidden"}
           className="flex h-full flex-col gap-2.5 px-3 pb-4 pt-9"
         >
           {/* App bar */}
           <motion.div variants={item} className="flex items-center justify-between">
             <span className="font-display text-sm font-semibold text-cream">
-              Segma
+              Revela
             </span>
             <span className="rounded-full bg-sage/20 px-2 py-0.5 font-mono text-[0.55rem] font-medium uppercase tracking-[0.1em] text-sage-400">
-              Draft ready
+              First cut ready
             </span>
           </motion.div>
 
@@ -62,7 +65,6 @@ export function TransformationPhone() {
             </div>
             <ClipCard label="Clip" index="01" time="02:14" />
             <ClipCard label="Clip" index="02" time="01:47" />
-            <ClipCard label="Clip" index="03" time="03:08" />
           </motion.div>
 
           {/* Collapse indicator */}
@@ -83,14 +85,30 @@ export function TransformationPhone() {
             <span className="h-px w-8 bg-terracotta/30" />
           </motion.div>
 
-          {/* Segma cut */}
-          <motion.div variants={item} className="pt-3">
-            <div className="mb-7 px-0.5">
-              <span className="font-mono text-[0.55rem] uppercase tracking-[0.12em] text-cream/55">
-                Segma cut · vertical
-              </span>
+          {/* First cut — mirrors the app's "Here's your cut." screen */}
+          <motion.div variants={item} className="pt-2">
+            <span className="px-0.5 font-mono text-[0.55rem] font-semibold uppercase tracking-[0.12em] text-terracotta-400">
+              Your first cut
+            </span>
+            <p className="mt-0.5 px-0.5 font-display text-[1.05rem] font-semibold text-cream">
+              Here’s your cut.
+            </p>
+            <div className="mt-7">
+              <Timeline showHook showPlayhead />
             </div>
-            <Timeline showHook showPlayhead />
+            <p className="mt-1.5 px-0.5 font-display text-[0.68rem] italic leading-snug text-cream/55">
+              5 moments · about 24s — opens on the sizzle
+            </p>
+          </motion.div>
+
+          {/* Start sorting — the screen's real CTA */}
+          <motion.div variants={item} className="pt-1">
+            <span className="block w-full rounded-full bg-terracotta py-2 text-center text-[0.7rem] font-semibold text-cream">
+              Start sorting
+            </span>
+            <p className="mt-1.5 text-center font-mono text-[0.5rem] uppercase tracking-[0.1em] text-cream/40">
+              swipe → keep · ← cut · ↑ hook
+            </p>
           </motion.div>
 
           {/* Edit-time readout */}

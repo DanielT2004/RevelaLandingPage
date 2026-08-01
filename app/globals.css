@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* =====================================================================
-   Segma design tokens — Tailwind v4 CSS-first config.
+   Revela design tokens — Tailwind v4 CSS-first config.
    Warm, premium, anti-cliché. Terracotta + sage are used as product-UI
    accents so the page reads as a video editor, never a food website.
    ===================================================================== */
@@ -33,6 +33,10 @@
   --color-sage-100: #dbe2d5;
   --color-sage-50: #eaefe6;
 
+  /* Ochre — the app's "your call" / B-roll accent (0x9A7350 in the iOS app) */
+  --color-ochre: #9a7350;
+  --color-ochre-400: #b3906e;
+
   /* Warm gray — muted text. Base darkened to #6b6259 so muted body copy clears
      WCAG AA (≥4.5:1) on the cream surfaces; lighter tints kept for decorative use. */
   --color-warmgray: #6b6259;
@@ -47,7 +51,7 @@
     monospace;
 
   /* Motion */
-  --ease-segma: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-revela: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
 
   /* Layout */
@@ -106,7 +110,7 @@ body {
   border-radius: 0.6rem;
   font-size: 0.875rem;
   font-weight: 500;
-  transition: transform 0.2s var(--ease-segma);
+  transition: transform 0.2s var(--ease-revela);
 }
 .skip-link:focus {
   transform: translateY(0);
@@ -142,8 +146,8 @@ body {
   opacity: 0;
   transform: translateY(16px);
   transition:
-    opacity 0.6s var(--ease-segma),
-    transform 0.6s var(--ease-segma);
+    opacity 0.6s var(--ease-revela),
+    transform 0.6s var(--ease-revela);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
@@ -155,7 +159,7 @@ body {
 /* ---------------------------------------------------------------------
    Marquee — infinite horizontal scroll of a duplicated track.
    --------------------------------------------------------------------- */
-@keyframes segma-marquee {
+@keyframes revela-marquee {
   from {
     transform: translateX(0);
   }
@@ -166,7 +170,7 @@ body {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: segma-marquee var(--marquee-duration, 42s) linear infinite;
+  animation: revela-marquee var(--marquee-duration, 42s) linear infinite;
 }
 .marquee-reverse {
   animation-direction: reverse;
@@ -181,7 +185,7 @@ body {
 }
 
 /* Slow, ambient loops on the mockups (self-trim, waveform pulse, etc.) */
-@keyframes segma-trim {
+@keyframes revela-trim {
   0%,
   12% {
     transform: scaleX(1);
@@ -191,7 +195,7 @@ body {
     transform: scaleX(var(--trim-scale, 0.62));
   }
 }
-@keyframes segma-pulse {
+@keyframes revela-pulse {
   0%,
   100% {
     opacity: 0.55;
@@ -200,7 +204,7 @@ body {
     opacity: 1;
   }
 }
-@keyframes segma-playhead {
+@keyframes revela-playhead {
   from {
     left: 0%;
   }
@@ -241,7 +245,7 @@ body {
    Both land on their finished state under reduced motion (blanket rule above
    collapses the duration), so the strike still reads as a cut.
    --------------------------------------------------------------------- */
-@keyframes segma-headline-sweep {
+@keyframes revela-headline-sweep {
   0% {
     left: -3%;
     opacity: 0;
@@ -269,9 +273,9 @@ body {
     color-mix(in srgb, var(--color-sage-400) 55%, transparent);
   opacity: 0;
   pointer-events: none;
-  animation: segma-headline-sweep 1.15s var(--ease-inout) 0.75s both;
+  animation: revela-headline-sweep 1.15s var(--ease-inout) 0.75s both;
 }
-@keyframes segma-strike-draw {
+@keyframes revela-strike-draw {
   from {
     transform: translateY(-50%) scaleX(0);
   }
@@ -282,11 +286,60 @@ body {
 .headline-strike {
   transform: translateY(-50%) scaleX(0);
   transform-origin: left center;
-  animation: segma-strike-draw 0.3s var(--ease-inout) 1.15s both;
+  animation: revela-strike-draw 0.3s var(--ease-inout) 1.15s both;
+}
+
+/* ---------------------------------------------------------------------
+   Edit-statement marks (section 2) — pennant pop, strike, ochre underlay.
+   All rest hidden; `.stmt-play` (added on scroll-into-view) runs them in
+   sequence. Reduced motion: the blanket rule collapses durations, so the
+   marks land settled.
+   --------------------------------------------------------------------- */
+@keyframes revela-pennant-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.5);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(0) scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes revela-underlay-slide {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.stmt-pennant {
+  opacity: 0;
+}
+.stmt-strike {
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left center;
+}
+.stmt-underlay {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.stmt-play .stmt-pennant {
+  animation: revela-pennant-pop 0.4s var(--ease-revela) 0.3s both;
+}
+.stmt-play .stmt-strike {
+  animation: revela-strike-draw 0.3s var(--ease-inout) 0.85s both;
+}
+.stmt-play .stmt-underlay {
+  animation: revela-underlay-slide 0.35s var(--ease-inout) 1.35s both;
 }
 
 /* Swipe-deck hint arrows — a gentle horizontal nudge loop pointing the way. */
-@keyframes segma-nudge-left {
+@keyframes revela-nudge-left {
   0%,
   100% {
     transform: translateX(0);
@@ -297,7 +350,7 @@ body {
     opacity: 1;
   }
 }
-@keyframes segma-nudge-right {
+@keyframes revela-nudge-right {
   0%,
   100% {
     transform: translateX(0);
@@ -309,10 +362,10 @@ body {
   }
 }
 .hint-nudge-left {
-  animation: segma-nudge-left 1.5s var(--ease-inout) infinite;
+  animation: revela-nudge-left 1.5s var(--ease-inout) infinite;
 }
 .hint-nudge-right {
-  animation: segma-nudge-right 1.5s var(--ease-inout) infinite;
+  animation: revela-nudge-right 1.5s var(--ease-inout) infinite;
 }
 
 /* Utility: tabular figures for timecodes/counters */
@@ -322,7 +375,7 @@ body {
 }
 
 /* Waitlist success — a gentle rise + a sage check that draws its stroke. */
-@keyframes segma-pop {
+@keyframes revela-pop {
   from {
     opacity: 0;
     transform: translateY(8px) scale(0.98);
@@ -333,9 +386,9 @@ body {
   }
 }
 .success-pop {
-  animation: segma-pop 0.45s var(--ease-segma) both;
+  animation: revela-pop 0.45s var(--ease-revela) both;
 }
-@keyframes segma-check-draw {
+@keyframes revela-check-draw {
   to {
     stroke-dashoffset: 0;
   }
@@ -343,15 +396,15 @@ body {
 .check-draw {
   stroke-dasharray: 26;
   stroke-dashoffset: 26;
-  animation: segma-check-draw 0.5s var(--ease-segma) 0.12s forwards;
+  animation: revela-check-draw 0.5s var(--ease-revela) 0.12s forwards;
 }
 
 /* Spinner */
-@keyframes segma-spin {
+@keyframes revela-spin {
   to {
     transform: rotate(360deg);
   }
 }
 .spin {
-  animation: segma-spin 0.7s linear infinite;
+  animation: revela-spin 0.7s linear infinite;
 }

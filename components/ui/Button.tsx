@@ -4,7 +4,7 @@ type Variant = "primary" | "ghost" | "ghostDark";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-segma)] active:scale-[0.97] disabled:pointer-events-none disabled:opacity-60";
+  "inline-flex items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-revela)] active:scale-[0.97] disabled:pointer-events-none disabled:opacity-60";
 
 const variants: Record<Variant, string> = {
   primary:

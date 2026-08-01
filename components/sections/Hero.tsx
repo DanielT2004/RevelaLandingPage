@@ -2,7 +2,8 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { WaitlistForm } from "@/components/waitlist/WaitlistForm";
-import { TransformationPhone } from "@/components/visuals/TransformationPhone";
+import { ChaosToCutHero } from "@/components/visuals/ChaosToCutHero";
+import { Icon } from "@/components/visuals/icons";
 import { HERO } from "@/lib/site";
 
 export function Hero() {
@@ -28,24 +29,8 @@ export function Hero() {
               id="hero-heading"
               className="relative font-display text-[2.7rem] font-semibold leading-[1.04] tracking-[-0.02em] text-charcoal sm:text-[3.4rem] lg:text-[3.9rem]"
             >
-              Edit your food videos in{" "}
-              <span className="whitespace-nowrap text-terracotta">
-                10 minutes
-              </span>
-              ,{" "}
-              <span className="whitespace-nowrap text-warmgray">
-                not{" "}
-                <span className="relative whitespace-nowrap">
-                  3 hours
-                  {/* The "cut": a terracotta strike that draws itself as the
-                      playhead sweeps past. Shown fully under reduced motion. */}
-                  <span
-                    aria-hidden
-                    className="headline-strike absolute left-0 top-1/2 h-[3px] w-full rounded-full bg-terracotta/55"
-                  />
-                </span>
-              </span>
-              .
+              Raw clips in.{" "}
+              <span className="text-terracotta">Your edit out.</span>
               {/* Playhead that sweeps the headline once on load. */}
               <span aria-hidden className="headline-playhead" />
             </h1>
@@ -55,6 +40,21 @@ export function Hero() {
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-charcoal/70">
               {HERO.subhead}
             </p>
+          </Reveal>
+
+          {/* Above-the-fold differentiators — what auto-editors can't say. */}
+          <Reveal delay={175}>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {HERO.differentiators.map((d) => (
+                <li
+                  key={d.label}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-charcoal/10 bg-cream-50 px-3 py-1.5 font-mono text-[0.65rem] font-medium uppercase tracking-[0.08em] text-charcoal/70"
+                >
+                  <Icon name={d.icon} size={13} className="text-terracotta-600" />
+                  {d.label}
+                </li>
+              ))}
+            </ul>
           </Reveal>
 
           <Reveal delay={210}>
@@ -69,10 +69,10 @@ export function Hero() {
           </Reveal>
         </div>
 
-        {/* Not scroll-gated: this is first-paint content and must be visible
-            (and peeking into the fold) on mobile immediately. */}
+        {/* Not scroll-gated: this is first-paint content — the chaos→cut art
+            plays once on load and settles on the finished cut. */}
         <div className="w-full justify-self-center lg:justify-self-end">
-          <TransformationPhone />
+          <ChaosToCutHero />
         </div>
       </Container>
     </section>

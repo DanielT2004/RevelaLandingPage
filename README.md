@@ -1,6 +1,6 @@
-# Segma — Waitlist Landing Page
+# Revela — Waitlist Landing Page
 
-A fast, modern, single-page landing site for **Segma**, an iOS AI video editor that turns a food creator's raw footage into a post-ready TikTok in ~10 minutes. The page has one job: **capture waitlist emails** (pre-wired to Supabase, with real success/error states).
+A fast, modern, single-page landing site for **Revela**, an iOS AI video editor that turns a food creator's raw footage into a post-ready TikTok in ~10 minutes. The page has one job: **capture waitlist emails** (pre-wired to Supabase, with real success/error states).
 
 Built with **Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Framer Motion**. All visuals are rendered in CSS/SVG/DOM — there are **no external images** to host or break.
 
@@ -153,7 +153,7 @@ The social-proof section ships with **clearly-marked placeholder** cards (dashed
 
 ### App name
 
-The name **"Segma"** appears in `lib/site.ts` (and a couple of components: `Nav`, `Footer`, `TransformationPhone`, the OG/icon routes). To rebrand, search the repo for `Segma` and replace.
+The name **"Revela"** appears in `lib/site.ts` (and a couple of components: `Nav`, `Footer`, `TransformationPhone`, the OG/icon routes). To rebrand, search the repo for `Revela` and replace.
 
 ### Rate limiting
 

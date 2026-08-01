@@ -32,7 +32,7 @@ const svgProps = {
   strokeLinejoin: "round" as const,
 };
 
-/** Custom "hook" mark — the attention hook Segma finds in your footage. */
+/** Custom "hook" mark — the attention hook Revela finds in your footage. */
 function HookIcon({ size, className }: { size: number; className?: string }) {
   return (
     <svg

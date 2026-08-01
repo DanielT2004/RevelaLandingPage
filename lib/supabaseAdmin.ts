@@ -22,7 +22,7 @@ export function getSupabaseAdmin(): SupabaseClient | null {
 
   cached = createClient(url, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },
-    global: { headers: { "x-application-name": "segma-waitlist" } },
+    global: { headers: { "x-application-name": "revela-waitlist" } },
   });
   return cached;
 }

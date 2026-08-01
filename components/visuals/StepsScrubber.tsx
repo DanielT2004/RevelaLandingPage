@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -18,6 +18,10 @@ import {
 export function StepsScrubber({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  // Hydration-safe reduce handling: the server always renders the scroll-
+  // driven style; only after mount may reduced-motion pin the line full.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 80%", "end 60%"],
@@ -32,7 +36,7 @@ export function StepsScrubber({ children }: { children: React.ReactNode }) {
       <div className="relative mb-10 hidden h-px w-full bg-charcoal/10 md:block">
         <motion.div
           className="absolute inset-y-0 left-0 w-full origin-left bg-terracotta"
-          style={reduce ? { scaleX: 1 } : { scaleX }}
+          style={mounted && reduce ? { scaleX: 1 } : { scaleX }}
         />
         {nodes.map((left) => (
           <span

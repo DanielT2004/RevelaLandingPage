@@ -10,7 +10,7 @@ export function Footer() {
           <div className="max-w-xs">
             <div className="flex items-center gap-2.5 font-display text-lg font-semibold">
               <Logomark />
-              Segma
+              Revela
             </div>
             <p className="mt-3 text-sm leading-relaxed text-cream/55">
               {FOOTER.tagline}
