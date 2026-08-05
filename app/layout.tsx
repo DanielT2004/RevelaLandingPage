@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { fraunces, inter, ibmPlexMono } from "./fonts";
 import { SITE } from "@/lib/site";
 import "./globals.css";
@@ -94,6 +95,7 @@ export default function RootLayout({
         </a>
         <div className="grain-overlay" aria-hidden="true" />
         {children}
+        <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
