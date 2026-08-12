@@ -4,6 +4,7 @@ import { Section, Eyebrow } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { useNiche } from "@/components/niche/NicheContext";
+import { NicheArt } from "@/components/visuals/NicheArt";
 import { cn } from "@/lib/cn";
 import { NICHES, type NicheStatus } from "@/lib/site";
 
@@ -64,6 +65,14 @@ export function NichesSection() {
                 "hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-terracotta"
               )}
             >
+              {/* Art first — the eye should land on six different drawings
+                  before it lands on any text. */}
+              <NicheArt
+                variant={item.id}
+                muted={item.status === "soon"}
+                className="mb-6"
+              />
+
               <div className="flex w-full items-start justify-between gap-3">
                 <h3 className="font-display text-xl font-semibold text-cream">
                   {item.family}

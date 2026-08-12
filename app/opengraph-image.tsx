@@ -3,7 +3,7 @@ import { OG_MARK_DATA_URI } from "@/lib/og-mark";
 
 export const runtime = "edge";
 export const alt =
-  "Revela — you film yourself talking, it cuts like you would. Reviews, Shop promos, food and more in ~10 minutes.";
+  "Revela: you film yourself talking, it cuts like you would. Reviews, Shop promos, food and more in about 10 minutes.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -83,7 +83,7 @@ export default function OpengraphImage() {
               fontFamily: "system-ui, sans-serif",
             }}
           >
-            Reviews · Shop promos · food · vlogs — about 10 minutes, not 3 hours.
+            Reviews · Shop promos · food · vlogs. About 10 minutes, not 3 hours.
           </div>
         </div>
 

@@ -97,7 +97,7 @@ export function TransformationPhone() {
               <Timeline showHook showPlayhead />
             </div>
             <p className="mt-1.5 px-0.5 font-display text-[0.68rem] italic leading-snug text-cream/55">
-              5 moments · about 24s — opens on the sizzle
+              5 moments · about 24s · opens on the sizzle
             </p>
           </motion.div>
 

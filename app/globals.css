@@ -37,6 +37,10 @@
   --color-ochre: #9a7350;
   --color-ochre-400: #b3906e;
 
+  /* Marigold — the clip-art cast's hair. Deliberately brighter than the
+     brand terracotta so the figures pop against the charcoal panels. */
+  --color-marigold: #f5a93c;
+
   /* Warm gray — muted text. Base darkened to #6b6259 so muted body copy clears
      WCAG AA (≥4.5:1) on the cream surfaces; lighter tints kept for decorative use. */
   --color-warmgray: #6b6259;
@@ -204,6 +208,89 @@ body {
     opacity: 1;
   }
 }
+/* ---------------------------------------------------------------------
+   Swipe-deck clip art. One small loop per scene so the preview reads as a
+   playing clip rather than a paused frame. Applied only to the top card;
+   every element also carries data-loop, which the reduced-motion block
+   above already silences.
+   --------------------------------------------------------------------- */
+@keyframes revela-clip-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1.5px);
+  }
+}
+@keyframes revela-clip-steam {
+  0% {
+    opacity: 0.25;
+    transform: translateY(3px);
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.25;
+    transform: translateY(-4px);
+  }
+}
+@keyframes revela-clip-drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2.5px);
+  }
+}
+@keyframes revela-clip-pop {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035);
+  }
+}
+@keyframes revela-clip-tap {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+.clip-bob {
+  animation: revela-clip-bob 3.2s var(--ease-inout) infinite;
+}
+.clip-steam {
+  animation: revela-clip-steam 2.6s var(--ease-inout) infinite;
+}
+.clip-drift {
+  animation: revela-clip-drift 3.6s var(--ease-inout) infinite;
+}
+.clip-pop {
+  animation: revela-clip-pop 2.4s var(--ease-inout) infinite;
+}
+.clip-tap {
+  animation: revela-clip-tap 2s var(--ease-inout) infinite;
+}
+/* Scale/translate loops need a stable origin inside the SVG viewBox. */
+.clip-bob,
+.clip-steam,
+.clip-drift,
+.clip-pop,
+.clip-tap {
+  /* Centre of ClipArt's 120×150 viewBox — scale loops must pivot there. */
+  transform-origin: 60px 75px;
+  transform-box: view-box;
+}
+
 @keyframes revela-playhead {
   from {
     left: 0%;
@@ -235,6 +322,10 @@ body {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    /* Delays must go too, or a sequenced transition (e.g. the edit-statement
+       time bar) still sits on its start state for the length of the delay. */
+    animation-delay: 0.001ms !important;
+    transition-delay: 0.001ms !important;
     scroll-behavior: auto !important;
   }
 }

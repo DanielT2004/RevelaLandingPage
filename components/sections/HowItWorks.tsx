@@ -1,6 +1,5 @@
 import { Section, Eyebrow } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
-import { RevealGroup } from "@/components/motion/RevealGroup";
 import { StepsScrubber } from "@/components/visuals/StepsScrubber";
 import { StepCard } from "@/components/visuals/StepCard";
 import { ClipCard } from "@/components/visuals/ClipCard";
@@ -40,16 +39,31 @@ export function HowItWorks() {
             {HOW_IT_WORKS.headline}
           </h2>
         </Reveal>
+        <Reveal delay={120}>
+          <p className="mt-5 text-lg leading-relaxed text-warmgray">
+            {HOW_IT_WORKS.subhead}
+          </p>
+        </Reveal>
       </div>
 
       <StepsScrubber>
-        <RevealGroup className="grid gap-10 md:grid-cols-3 md:gap-8">
+        {/* Steps land 01 → 02 → 03 rather than together: the three columns
+            enter the viewport at the same moment, so the sequencing has to
+            come from the delay, and it has to be big enough to read. */}
+        <div className="grid gap-10 md:grid-cols-3 md:gap-8">
           {HOW_IT_WORKS.steps.map((step, i) => (
-            <StepCard key={step.n} n={step.n} title={step.title} body={step.body}>
+            <StepCard
+              key={step.n}
+              n={step.n}
+              title={step.title}
+              body={step.body}
+              caps={step.caps}
+              delay={i * 260}
+            >
               {visuals[i]}
             </StepCard>
           ))}
-        </RevealGroup>
+        </div>
       </StepsScrubber>
     </Section>
   );

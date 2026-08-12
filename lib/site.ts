@@ -1,7 +1,7 @@
 /**
  * Revela — single source of truth for all copy + site constants.
  * Edit headlines, features, and metadata here; components consume this data.
- * (Testimonials are intentionally bracketed placeholders — replace before launch.)
+ * (SOCIAL_PROOF is parked — bracketed placeholders, section not mounted.)
  */
 
 export const SITE = {
@@ -9,18 +9,18 @@ export const SITE = {
   domain: "revela.app",
   /** Drives canonical/OG/sitemap URLs. Set NEXT_PUBLIC_SITE_URL in your env. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://revela.app",
-  email: "hello@revela.app",
+  email: "daniel.t7504@gmail.com",
   tagline: "Your footage, finished.",
-  taglineLong: "Revela — raw clips in, ready-to-post video out.",
+  taglineLong: "Revela: raw clips in, ready-to-post video out.",
 
   // --- SEO / metadata ---
-  title: "Revela — You Film Yourself Talking. It Cuts Like You Would.",
+  title: "Revela | You film yourself talking. It cuts like you would.",
   titleTemplate: "%s · Revela",
   description:
-    "Revela turns talking-head + b-roll footage into a post-ready vertical video in about 10 minutes — reviews, TikTok Shop promos, food and more. Find the hook, cut the rambles, swipe to finish. Join the waitlist.",
-  ogTitle: "Revela — You film yourself talking. It cuts like you would.",
+    "Revela turns talking-head + b-roll footage into a post-ready vertical video in about 10 minutes. Reviews, TikTok Shop promos, food and more. Find the hook, cut the rambles, swipe to finish. Join the waitlist.",
+  ogTitle: "Revela | You film yourself talking. It cuts like you would.",
   ogDescription:
-    "What takes 1–3 hours of editing takes about 10 minutes. Revela finds your hook, cuts the dead air, and hands you a cut you approve shot by shot — reviews, Shop promos, food and more. Join the early-access waitlist.",
+    "What takes 1-3 hours of editing takes about 10 minutes. Revela finds your hook, cuts the dead air, and hands you a cut you approve shot by shot. Reviews, Shop promos, food and more. Join the early-access waitlist.",
   keywords: [
     "AI video editing",
     "food content creator",
@@ -41,10 +41,8 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { label: "Try it", href: "#try-swipe" },
-  { label: "The problem", href: "#problem" },
   { label: "How it works", href: "#how-it-works" },
   { label: "Who it’s for", href: "#niches" },
-  { label: "Features", href: "#features" },
 ] as const;
 
 export const HERO = {
@@ -53,7 +51,7 @@ export const HERO = {
    *  screen-reader / reference version. */
   headline: "Raw clips in. Your edit out.",
   subhead:
-    "Revela watches every second, finds your hook, cuts the dead air, lays your B-roll, and orders it the way your genre works — then you approve every cut. About 10 minutes, not 3 hours.",
+    "Revela watches every second, finds your hook, cuts the dead air, lays your B-roll, and orders it the way your genre works. Then you approve every cut. About 10 minutes, not 3 hours.",
   /** Above-the-fold differentiators (vs. auto-editors you can't steer). */
   differentiators: [
     { icon: "swipe", label: "You approve every cut" },
@@ -72,43 +70,54 @@ export const HERO = {
    --------------------------------------------------------------------- */
 export const EDIT_STATEMENT = {
   srText: "Hook found. Dead air cut. B-roll placed. Edited like you would.",
-  phoneCaption: "The actual app — your first cut, ready to sort.",
+  phoneCaption: "The actual app, with your first cut ready to sort.",
+  /** The time claim, stated in numbers above the collapsing bar. The bar
+   *  animates it; these say what it collapsed *from* — without them a
+   *  shrinking bar doesn't tell you anything. */
+  beforeLabel: "Editing by hand",
+  beforeValue: "2-3 hrs",
+  afterLabel: "With Revela",
+  afterValue: "≈ 10 minutes",
 } as const;
 
-export const PROBLEM = {
-  eyebrow: "The part nobody posts about",
-  headline: "You didn’t start creating to spend your night editing.",
-  body: [
-    "If you’re spending 1 to 3 hours cutting the same kind of video the same way every single time — you’re not alone. It’s the part nobody warns you about.",
-    "You shoot something great. Then you sit down to find the hook, trim the dead air, fix the slow talking bits, line up the b-roll, and tighten it into something worth posting.",
-    "Every. Single. Video. And by the time it’s done, you’re too drained to shoot the next one.",
-  ],
-  painCards: [
-    { icon: "hook", label: "Hunting for the hook buried in your footage." },
-    { icon: "scissors", label: "Cutting the slow, redundant, “get to the point” parts." },
-    { icon: "audio", label: "Rescuing long talking-to-camera stretches." },
-    { icon: "repeat", label: "Doing it all again tomorrow." },
-  ],
-} as const;
-
+/* ---------------------------------------------------------------------
+   How it works — also carries what used to be its own "Features" section.
+   Each step lists the two capabilities that actually happen at that stage:
+   01 = ingest + analysis, 02 = the cut it proposes, 03 = your control and
+   output. Two per step, deliberately — StepCard keeps all three titles on
+   one baseline, and uneven row counts would break that.
+   --------------------------------------------------------------------- */
 export const HOW_IT_WORKS = {
   eyebrow: "How it works",
   headline: "Three steps. Roughly ten minutes.",
+  subhead: "Everything you’d do by hand, done along the way.",
   steps: [
     {
       n: "01",
       title: "Drop your clips",
-      body: "Pick your raw footage — Revela watches every second so you don’t have to.",
+      body: "Pick your raw footage. Revela watches every second so you don’t have to.",
+      caps: [
+        { icon: "hook", label: "Finds your hook" },
+        { icon: "scissors", label: "Cuts the slow stuff" },
+      ],
     },
     {
       n: "02",
       title: "Get a first cut",
-      body: "It finds your hook, trims the slow parts, and proposes a post-ready vertical cut — you review the plan before anything’s final.",
+      body: "It finds your hook, trims the slow parts, and proposes a finished vertical cut, and you review the plan before anything’s final.",
+      caps: [
+        { icon: "audio", label: "Talking bits into voiceover" },
+        { icon: "fingerprint", label: "Learns your style" },
+      ],
     },
     {
       n: "03",
       title: "Swipe to finish",
-      body: "Sort every clip with a swipe — keep, cut, hook, or B-roll — then arrange, polish, and export.",
+      body: "Sort every clip with a swipe (keep, cut, hook, or B-roll), then arrange, polish, and export.",
+      caps: [
+        { icon: "swipe", label: "You approve every cut" },
+        { icon: "export", label: "Post it today" },
+      ],
     },
   ],
 } as const;
@@ -126,19 +135,19 @@ export const NICHES = {
   eyebrow: "Who it’s for",
   headline: "Whatever you film, it cuts like you.",
   subhead:
-    "Every genre builds its videos differently — a review argues, a promo sells, a vlog flows. Revela knows the structure of yours. Pick your lane.",
+    "Every genre builds its videos differently. A review argues, a promo sells, a vlog flows. Revela knows the structure of yours. Pick your lane.",
   chips: {
     flagship: "Flagship · live",
     live: "Live at launch",
     soon: "Coming soon",
     other: "You tell us",
   },
-  soonNote: "Not in the launch build — join the list and tell us you want it first.",
+  soonNote: "Not in the launch build yet. Join the list and tell us you want it first.",
   items: [
     {
       id: "food",
       family: "Food & restaurants",
-      topics: "reviews, spots, street food, travel eats · you give a verdict",
+      topics: "street food · travel eats",
       status: "flagship",
       deck: "food",
       cta: "Watch it sort a shoot →",
@@ -146,7 +155,7 @@ export const NICHES = {
     {
       id: "reviews",
       family: "Reviews & recommendations",
-      topics: "tech, products, beauty, places · you give a verdict",
+      topics: "tech · beauty · places",
       status: "live",
       deck: "reviews",
       cta: "Watch it sort a review →",
@@ -154,7 +163,7 @@ export const NICHES = {
     {
       id: "promos",
       family: "Promos that sell",
-      topics: "TikTok Shop, UGC, brand deals · ends in a call-to-action",
+      topics: "TikTok Shop · UGC · brand deals",
       status: "live",
       deck: "promos",
       cta: "Watch it sort a promo →",
@@ -162,7 +171,7 @@ export const NICHES = {
     {
       id: "vlogs",
       family: "Vlogs & day-in-the-life",
-      topics: "daily life, travel days, behind the scenes",
+      topics: "travel days · behind the scenes",
       status: "soon",
       deck: null,
       cta: "Want it first? →",
@@ -170,7 +179,7 @@ export const NICHES = {
     {
       id: "teaching",
       family: "Teaching & explaining",
-      topics: "coaching, finance, expertise",
+      topics: "coaching · finance · expertise",
       status: "soon",
       deck: null,
       cta: "Want it first? →",
@@ -206,9 +215,17 @@ export const NICHES = {
    --------------------------------------------------------------------- */
 export type ClipTone = "sage" | "terracotta" | "ochre";
 export type ClipVerdict = "Strong keep" | "Keeper" | "Your call" | "Suggested cut";
+/** Drives the line-art in ClipArt — keep new clips inside this set. */
+export type Scene =
+  | "Talking"
+  | "Cooking"
+  | "Plating"
+  | "Reaction"
+  | "B-roll"
+  | "Demo";
 export type DemoClip = {
   label: string;
-  scene: string;
+  scene: Scene;
   dur: number;
   verdict: ClipVerdict;
   tone: ClipTone;
@@ -220,11 +237,11 @@ export const TRY_SWIPE = {
   eyebrow: "Try it yourself",
   headline: "Editing that feels like a game.",
   subhead:
-    "This is the app’s real Sort stage. Every clip arrives with Revela’s read on it — swipe right to keep, left to cut, or send it to your hook or B-roll. Nothing’s deleted; cuts wait in the tray. Pick a shoot below to see how it reads your genre.",
+    "This is the app’s real Sort stage. Every clip arrives with Revela’s read on it. Swipe right to keep, left to cut, or send it to your hook or B-roll. Nothing’s deleted. Cuts wait in the tray.",
   switcherHint: "Pick a shoot",
   stages: ["Sort", "Arrange", "Polish"],
   trayLabel: "Tray",
-  tryIt: "Swipe the card — it’s interactive",
+  tryIt: "Swipe the card, it’s interactive",
   spineLabel: "Your cut",
   keepLabel: "Keep",
   cutLabel: "Cut",
@@ -233,11 +250,11 @@ export const TRY_SWIPE = {
   /** Consequence narration under the mini-timeline — the app's demo-deck
    *  coach lines, verbatim. */
   coach: {
-    idle: "Sort the deck — your cut builds here.",
+    idle: "Sort the deck. Your cut builds here.",
     keep: "Added to your cut.",
-    cut: "Cut. It waits in the tray — nothing’s ever deleted.",
-    hook: "Your new opener — moved to the very front.",
-    broll: "Layered over the cut — it plays while your voice continues.",
+    cut: "Cut. It waits in the tray, nothing’s ever deleted.",
+    hook: "Your new opener, moved to the very front.",
+    broll: "Layered over the cut. It plays while your voice continues.",
   },
   decks: {
     food: {
@@ -250,7 +267,7 @@ export const TRY_SWIPE = {
           dur: 6,
           verdict: "Strong keep",
           tone: "sage",
-          reason: "Loud sizzle, instant motion — this is the shot that stops the scroll.",
+          reason: "Loud sizzle, instant motion. This is the shot that stops the scroll.",
         },
         {
           label: "Long intro ramble",
@@ -266,7 +283,7 @@ export const TRY_SWIPE = {
           dur: 9,
           verdict: "Keeper",
           tone: "sage",
-          reason: "Clean payoff shot — this earns the watch-through.",
+          reason: "A clean payoff shot that earns the watch-through.",
         },
         {
           label: "Dead air / re-take",
@@ -282,7 +299,7 @@ export const TRY_SWIPE = {
           dur: 7,
           verdict: "Your call",
           tone: "ochre",
-          reason: "Great genuine reaction — but it repeats the payoff.",
+          reason: "Great genuine reaction, but it repeats the payoff.",
         },
       ],
     },
@@ -291,12 +308,12 @@ export const TRY_SWIPE = {
       project: "M4 iPad review",
       clips: [
         {
-          label: "“Don’t buy this yet” — the thesis",
+          label: "“Don’t buy this yet” (the thesis)",
           scene: "Talking",
           dur: 8,
           verdict: "Strong keep",
           tone: "sage",
-          reason: "You give the verdict in one sentence — that’s the hook.",
+          reason: "You give the verdict in one sentence. That’s the hook.",
         },
         {
           label: "Reading the spec sheet",
@@ -312,10 +329,10 @@ export const TRY_SWIPE = {
           dur: 12,
           verdict: "Your call",
           tone: "ochre",
-          reason: "Every review opens on the box — your demo is stronger.",
+          reason: "Every review opens on the box. Your demo is stronger.",
         },
         {
-          label: "Live demo — the lag moment",
+          label: "Live demo: the lag moment",
           scene: "Demo",
           dur: 14,
           verdict: "Keeper",
@@ -328,7 +345,7 @@ export const TRY_SWIPE = {
           dur: 9,
           verdict: "Keeper",
           tone: "sage",
-          reason: "Protected — the verdict is why they watched.",
+          reason: "Protected. The verdict is why they watched.",
         },
       ],
     },
@@ -342,7 +359,7 @@ export const TRY_SWIPE = {
           dur: 5,
           verdict: "Strong keep",
           tone: "sage",
-          reason: "Product on screen immediately — Shop videos live or die here.",
+          reason: "Product on screen immediately. Shop videos live or die here.",
         },
         {
           label: "Backstory ramble",
@@ -358,7 +375,7 @@ export const TRY_SWIPE = {
           dur: 8,
           verdict: "Keeper",
           tone: "sage",
-          reason: "Texture shot — proof it does what you say.",
+          reason: "Texture shot, proof it does what you say.",
         },
         {
           label: "Before / after",
@@ -366,7 +383,7 @@ export const TRY_SWIPE = {
           dur: 7,
           verdict: "Keeper",
           tone: "sage",
-          reason: "The claim, shown not said — the highest-converting beat.",
+          reason: "The claim, shown instead of said. The highest-converting beat.",
         },
         {
           label: "“Link in bio” CTA",
@@ -374,77 +391,28 @@ export const TRY_SWIPE = {
           dur: 6,
           verdict: "Strong keep",
           tone: "sage",
-          reason: "Protected — the CTA is the video’s whole job.",
+          reason: "Protected. The CTA is the video’s whole job.",
         },
       ],
     },
   },
   doneTitle: "All sorted",
-  doneBody: "That’s the whole job — hook up front, B-roll layered over. You just built the cut.",
+  doneBody: "That’s the whole job: hook up front, B-roll layered over. You just built the cut.",
   exportCta: "Export my video",
   doneCta: "Join the waitlist",
   replay: "Run it again",
 } as const satisfies Record<string, unknown> & { decks: Record<DeckNiche, DemoDeck> };
 
-export const FEATURES = {
-  eyebrow: "What Revela does",
-  headline: "Everything you’d do by hand, done for you.",
-  items: [
-    {
-      icon: "hook",
-      title: "Finds your hook",
-      body: "Revela scans your footage and opens on the moment that actually stops the scroll.",
-      wide: false,
-    },
-    {
-      icon: "scissors",
-      title: "Cuts the slow stuff",
-      body: "The dead air, the rambles, the redundant takes — trimmed before you even look.",
-      wide: false,
-    },
-    {
-      icon: "audio",
-      title: "Talking bits into voiceover",
-      body: "Turns rambling talk-to-camera stretches into your real voice over your b-roll — the product, the process, the plate.",
-      wide: true,
-    },
-    {
-      icon: "fingerprint",
-      title: "Learns your style",
-      body: "Every edit teaches Revela how you cut — so it starts feeling like you made it.",
-      wide: false,
-    },
-    {
-      icon: "export",
-      title: "Post it today",
-      body: "Full quality straight to your camera roll — no watermark, no credits, ready to post.",
-      wide: false,
-    },
-    {
-      icon: "swipe",
-      title: "You approve every cut",
-      body: "Revela proposes; you decide. Every cut is reviewed by the only editor who knows your channel — you.",
-      wide: false,
-    },
-  ],
-} as const;
-
-export const TIME_SAVED = {
-  eyebrow: "The math",
-  headline: "2–3 hours of editing. Down to about 10 minutes.",
-  body: "Get your night back, post more often, and spend your energy on the part you actually love — filming the next one.",
-  /** Kinetic numbers (seconds are formatted H:MM:SS in the counter). */
-  beforeSeconds: 10020, // 2:47:00
-  beforeLabel: "Editing by hand",
-  afterLabel: "≈ 10 minutes",
-  savedChip: "2h 37m saved",
-} as const;
-
+/**
+ * PARKED — the testimonial section is not mounted on the page (see
+ * app/page.tsx). Kept so real quotes can be dropped in and the section
+ * re-mounted with a one-line change.
+ */
 export const SOCIAL_PROOF = {
   eyebrow: "Early access",
   headline: "Join the first creators trying Revela.",
   subhead:
-    "Real reviews land here soon. For now, these are placeholders — the seats are not.",
+    "Real reviews land here soon. For now these are placeholders. The seats are not.",
   /**
    * PLACEHOLDER testimonials — do not ship these brackets.
    * Replace `quote`, `name`, `handle` with real, permissioned creator quotes.
@@ -482,10 +450,10 @@ export const FINAL_CTA = {
   eyebrow: "Get in early",
   headline: "Be first in line when Revela drops.",
   subhead:
-    "Early access is limited — get on the list and start editing in minutes, not hours.",
+    "Early access is limited. Get on the list and get your evenings back.",
   inputPlaceholder: "Enter your email",
   button: "Get early access",
-  reassurance: "No spam. Unsubscribe anytime. Just the launch.",
+  reassurance: "No spam, and you can unsubscribe anytime.",
 } as const;
 
 export const FOOTER = {
@@ -506,7 +474,7 @@ export const FORM_COPY = {
   successBody: "We’ll email you the moment early access opens.",
   duplicate: "You’re already on the list ✓",
   invalidEmail: "That email doesn’t look right.",
-  serverError: "Something went wrong — try again.",
+  serverError: "Something went wrong. Try again.",
   unconfigured:
     "The waitlist isn’t connected yet. Add your Supabase keys to start collecting emails.",
   submitting: "Joining…",

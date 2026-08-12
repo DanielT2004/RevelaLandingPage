@@ -14,10 +14,17 @@ import {
 } from "framer-motion";
 import { PhoneFrame } from "./PhoneFrame";
 import { Waveform } from "./Waveform";
+import { ClipArt } from "./ClipArt";
 import { useInView } from "@/components/motion/useInView";
 import { buttonClasses } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
-import { TRY_SWIPE, type ClipTone, type ClipVerdict, type DemoClip } from "@/lib/site";
+import {
+  TRY_SWIPE,
+  type ClipTone,
+  type ClipVerdict,
+  type DeckNiche,
+  type DemoClip,
+} from "@/lib/site";
 
 /** The four real sort actions: swipe → keep / ← cut; hook & B-roll via buttons. */
 export type Decision = "keep" | "cut" | "hook" | "broll";
@@ -70,6 +77,7 @@ function DeckCard({
   clip,
   index,
   isTop,
+  genre,
   demo,
   onDecide,
   onInteract,
@@ -77,6 +85,7 @@ function DeckCard({
   clip: DemoClip;
   index: number;
   isTop: boolean;
+  genre: DeckNiche;
   /** Play the one-time teaching nudge (top card, first view, pre-interaction). */
   demo: boolean;
   onDecide: (d: Decision) => void;
@@ -160,12 +169,16 @@ function DeckCard({
       >
         {/* Hero — the clip preview, like the app's looping player */}
         <div className="relative flex-1 overflow-hidden bg-charcoal-900">
-          <div className="absolute inset-0 bg-gradient-to-br from-cream/[0.08] to-transparent" />
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-cream/30">
-            <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden>
-              <path d="M8 5v14l11-7z" fill="currentColor" />
-            </svg>
+          {/* The footage itself — a close-up of a person, cropped by the panel
+              edges, so the card reads as a real clip and not an empty player.
+              Only the top card loops. Drawn BEFORE the wash: the art uses
+              charcoal-900 fills to occlude, which must match the bare panel. */}
+          <div className="absolute inset-0">
+            <ClipArt scene={clip.scene} genre={genre} animate={isTop} />
           </div>
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cream/[0.08] to-transparent" />
+          {/* Top scrim: the head now sits behind the verdict and HOOK pills. */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-charcoal-900/70 to-transparent" />
           <Waveform
             bars={36}
             className="absolute inset-x-3 bottom-8 h-4 text-cream/15"
@@ -331,6 +344,7 @@ function ActionButton({
 export function SwipeDeck({
   clips: CLIPS,
   project,
+  genre,
   initialInteracted = false,
   onDecide,
   onReset,
@@ -338,7 +352,9 @@ export function SwipeDeck({
 }: {
   clips: readonly DemoClip[];
   project: string;
-  /** True when this deck was reached via the tab switcher — skips the
+  /** Picks the prop the figure in each clip preview is holding. */
+  genre: DeckNiche;
+  /** True when this deck was reached by switching genre — skips the
    *  one-time teaching nudge (it already played on the first deck). */
   initialInteracted?: boolean;
   /** Mirrors each sort decision up (drives the SpineStrip consequence rail). */
@@ -523,6 +539,7 @@ export function SwipeDeck({
                       clip={clip}
                       index={i}
                       isTop={i === index}
+                      genre={genre}
                       demo={i === 0 && inView && !interacted}
                       onDecide={decide}
                       onInteract={markInteracted}
