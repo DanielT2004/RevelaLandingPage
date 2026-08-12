@@ -45,6 +45,7 @@ export function ScrollScrubber() {
     <div
       aria-hidden
       className="pointer-events-none fixed inset-x-0 bottom-0 z-40"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <div className="relative h-[3px] w-full bg-charcoal/10">
         <motion.div
@@ -52,8 +53,11 @@ export function ScrollScrubber() {
           style={{ scaleX }}
         />
       </div>
-      <motion.div style={{ left }} className="absolute bottom-2 -translate-x-1/2">
-        <span className="flex items-center gap-1.5 rounded-full bg-charcoal-900/90 px-2.5 py-1 font-mono text-[0.6rem] font-semibold text-cream shadow-[0_6px_20px_-6px_rgba(0,0,0,0.6)] backdrop-blur">
+      <motion.div
+        style={{ left, bottom: "calc(0.5rem + env(safe-area-inset-bottom))" }}
+        className="absolute -translate-x-1/2"
+      >
+        <span className="flex items-center gap-1.5 rounded-full bg-charcoal-900/90 px-2 py-1 font-mono text-[0.55rem] font-semibold text-cream shadow-[0_6px_20px_-6px_rgba(0,0,0,0.6)] backdrop-blur sm:px-2.5 sm:text-[0.6rem]">
           <span className="h-1.5 w-1.5 rounded-full bg-terracotta" />
           <span className="tnum">{time}</span>
           <span className="text-cream/40">/ 10:00</span>

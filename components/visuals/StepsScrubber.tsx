@@ -9,11 +9,12 @@ import {
 } from "framer-motion";
 
 /**
- * Wraps the three How-It-Works steps and threads a scroll-linked timeline above
- * them (desktop only): a terracotta line fills left→right as the section moves
- * through the viewport, with a node over each step — the page reads as scrubbing
- * an edit. The steps themselves are passed in as server-rendered children.
- * Under reduced motion the line simply shows full and static.
+ * Wraps the three How-It-Works steps and threads a scroll-linked timeline
+ * through them: on md+ a terracotta line fills left→right above the columns;
+ * below md the same progress drives a vertical rail beside the stacked steps
+ * (a node per step lives in HowItWorks, aligned to this rail) — either way the
+ * page reads as scrubbing an edit. The steps themselves are passed in as
+ * server-rendered children. Under reduced motion the line shows full and static.
  */
 export function StepsScrubber({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -27,6 +28,7 @@ export function StepsScrubber({ children }: { children: React.ReactNode }) {
     offset: ["start 80%", "end 60%"],
   });
   const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const scaleY = scaleX;
 
   // Column centres for a 3-up grid.
   const nodes = [16.667, 50, 83.333];
@@ -47,7 +49,21 @@ export function StepsScrubber({ children }: { children: React.ReactNode }) {
           />
         ))}
       </div>
-      {children}
+      <div className="relative">
+        {/* Vertical rail for the stacked mobile layout — same progress, same
+            metaphor, rotated 90°. Step nodes are rendered by HowItWorks so
+            they align with each card. */}
+        <div
+          aria-hidden
+          className="absolute bottom-2 left-1 top-2 w-[2px] rounded-full bg-charcoal/10 md:hidden"
+        >
+          <motion.div
+            className="absolute inset-x-0 top-0 h-full origin-top bg-terracotta"
+            style={mounted && reduce ? { scaleY: 1 } : { scaleY }}
+          />
+        </div>
+        {children}
+      </div>
     </div>
   );
 }

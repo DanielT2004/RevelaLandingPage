@@ -26,6 +26,7 @@ export function Nav() {
           ? "border-charcoal/8 bg-cream/85 backdrop-blur-md"
           : "border-transparent bg-transparent"
       )}
+      style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <Container className="flex h-16 items-center justify-between">
         <a
@@ -52,7 +53,7 @@ export function Nav() {
         </nav>
 
         <a href="#waitlist" className={buttonClasses("primary", "md")}>
-          <span className="sm:hidden">Join</span>
+          <span className="sm:hidden">Join waitlist</span>
           <span className="hidden sm:inline">Join the waitlist</span>
         </a>
       </Container>

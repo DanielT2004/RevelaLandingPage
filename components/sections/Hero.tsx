@@ -18,8 +18,12 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 [background:radial-gradient(60%_45%_at_50%_-5%,rgba(181,101,74,0.07),transparent_70%)]"
       />
 
-      <Container className="relative grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-        <div className="max-w-xl">
+      {/* Mobile story order is the source order: promise → art → invite.
+          On lg the two text blocks stack back into column 1 (gap-y-0 + the
+          blocks' own margins reproduce the original single-column layout)
+          while the art spans both rows in column 2. */}
+      <Container className="relative grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:grid-rows-[auto_auto] lg:gap-x-10 lg:gap-y-0">
+        <div className="max-w-xl lg:col-start-1 lg:row-start-1 lg:self-end">
           <Reveal>
             <Eyebrow>{HERO.eyebrow}</Eyebrow>
           </Reveal>
@@ -31,20 +35,29 @@ export function Hero() {
             >
               Raw clips in.{" "}
               <span className="text-terracotta">Your edit out.</span>
-              {/* Playhead that sweeps the headline once on load. */}
+              {/* Playhead that sweeps the headline once it's in view. */}
               <span aria-hidden className="headline-playhead" />
             </h1>
           </Reveal>
 
           <Reveal delay={140}>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-charcoal/70">
-              {HERO.subhead}
+              <span className="sm:hidden">{HERO.subheadShort}</span>
+              <span className="hidden sm:inline">{HERO.subhead}</span>
             </p>
           </Reveal>
+        </div>
 
+        {/* The chaos→cut art — on mobile it's the "show" beat right after the
+            promise; its sequence starts when it scrolls into view. */}
+        <div className="w-full justify-self-center lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:justify-self-end">
+          <ChaosToCutHero />
+        </div>
+
+        <div className="max-w-xl lg:col-start-1 lg:row-start-2 lg:self-start">
           {/* Above-the-fold differentiators — what auto-editors can't say. */}
           <Reveal delay={175}>
-            <ul className="mt-5 flex flex-wrap gap-2">
+            <ul className="flex flex-wrap gap-2 lg:mt-5">
               {HERO.differentiators.map((d) => (
                 <li
                   key={d.label}
@@ -67,12 +80,6 @@ export function Hero() {
               />
             </div>
           </Reveal>
-        </div>
-
-        {/* Not scroll-gated: this is first-paint content — the chaos→cut art
-            plays once on load and settles on the finished cut. */}
-        <div className="w-full justify-self-center lg:justify-self-end">
-          <ChaosToCutHero />
         </div>
       </Container>
     </section>

@@ -52,6 +52,9 @@ export const HERO = {
   headline: "Raw clips in. Your edit out.",
   subhead:
     "Revela watches every second, finds your hook, cuts the dead air, lays your B-roll, and orders it the way your genre works. Then you approve every cut. About 10 minutes, not 3 hours.",
+  /** One-line mobile promise — the full subhead reads as a wall in one column. */
+  subheadShort:
+    "Revela finds your hook, cuts the dead air, lays your B-roll — you approve every cut. About 10 minutes, not 3 hours.",
   /** Above-the-fold differentiators (vs. auto-editors you can't steer). */
   differentiators: [
     { icon: "swipe", label: "You approve every cut" },
@@ -238,6 +241,9 @@ export const TRY_SWIPE = {
   headline: "Editing that feels like a game.",
   subhead:
     "This is the app’s real Sort stage. Every clip arrives with Revela’s read on it. Swipe right to keep, left to cut, or send it to your hook or B-roll. Nothing’s deleted. Cuts wait in the tray.",
+  /** One-line mobile version — on mobile the deck sits right above this. */
+  subheadShort:
+    "The app’s real Sort stage. Swipe right to keep, left to cut. Nothing’s deleted — cuts wait in the tray.",
   switcherHint: "Pick a shoot",
   stages: ["Sort", "Arrange", "Polish"],
   trayLabel: "Tray",

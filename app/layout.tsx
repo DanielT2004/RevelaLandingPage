@@ -46,6 +46,9 @@ export const viewport: Viewport = {
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
+  // Draw under the iOS home indicator so the fixed scrubber can sit flush
+  // against it (it pads itself with env(safe-area-inset-bottom)).
+  viewportFit: "cover",
 };
 
 /** Structured data — Organization + SoftwareApplication (NO aggregateRating: no real reviews yet). */

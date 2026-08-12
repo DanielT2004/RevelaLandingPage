@@ -191,7 +191,7 @@ export function WaitlistForm({
             if (isError) setStatus("idle");
           }}
           className={cn(
-            "h-[3.4rem] flex-1 rounded-full px-5 text-[1rem] outline-none transition-colors",
+            "h-[3.4rem] flex-1 rounded-2xl px-5 text-[1rem] outline-none transition-colors sm:rounded-full",
             dark
               ? "border border-cream/15 bg-charcoal-800 text-cream placeholder:text-cream/45 focus:border-terracotta-400"
               : "border border-charcoal/12 bg-cream-50 text-charcoal placeholder:text-warmgray/70 focus:border-terracotta",

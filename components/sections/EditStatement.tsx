@@ -19,8 +19,11 @@ export function EditStatement() {
 
   return (
     <Section labelledBy="edit-statement-heading" tone="cream">
-      <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-        <div>
+      {/* Mobile story order = source order: statement → phone proof → stats.
+          On lg the headline and stats stack back into column 1 (gap-y-0 +
+          the stats card's own mt-10) with the phone spanning both rows. */}
+      <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:grid-rows-[auto_auto] lg:gap-x-10 lg:gap-y-0">
+        <div className="lg:col-start-1 lg:row-start-1 lg:self-end">
           <h2
             ref={ref}
             id="edit-statement-heading"
@@ -52,7 +55,18 @@ export function EditStatement() {
               <span className="text-terracotta">Edited like you would.</span>
             </span>
           </h2>
+        </div>
 
+        {/* The real-app phone — on mobile it's the proof beat right after the
+            statement; on lg it keeps its right-column seat. */}
+        <Reveal className="w-full justify-self-center lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:justify-self-end">
+          <TransformationPhone />
+          <p className="mt-5 text-center text-sm text-warmgray">
+            {EDIT_STATEMENT.phoneCaption}
+          </p>
+        </Reveal>
+
+        <div className="lg:col-start-1 lg:row-start-2 lg:self-start">
           {/* The payoff for the edit above: the same job, collapsed. The
               numbers state the claim; the bar animates it — on its own a
               shrinking bar never says what it shrank from. Held back until
@@ -103,13 +117,6 @@ export function EditStatement() {
             </div>
           </Reveal>
         </div>
-
-        <Reveal className="w-full justify-self-center lg:justify-self-end">
-          <TransformationPhone />
-          <p className="mt-5 text-center text-sm text-warmgray">
-            {EDIT_STATEMENT.phoneCaption}
-          </p>
-        </Reveal>
       </div>
     </Section>
   );

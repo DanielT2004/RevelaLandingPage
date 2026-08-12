@@ -4,7 +4,7 @@ type Variant = "primary" | "ghost" | "ghostDark";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-revela)] active:scale-[0.97] disabled:pointer-events-none disabled:opacity-60";
+  "inline-flex items-center justify-center gap-2 font-semibold whitespace-nowrap transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-revela)] active:scale-[0.97] disabled:pointer-events-none disabled:opacity-60";
 
 const variants: Record<Variant, string> = {
   primary:
@@ -15,9 +15,12 @@ const variants: Record<Variant, string> = {
     "border border-cream/20 bg-transparent text-cream hover:border-cream/40 hover:bg-cream/[0.06]",
 };
 
+// Rounding lives with the size: md buttons are always inline pills; lg ones
+// go full-width when stacked below sm, where a stretched pill reads as a
+// lozenge — so they square off to rounded-2xl there.
 const sizes: Record<Size, string> = {
-  md: "h-11 px-5 text-[0.95rem]",
-  lg: "h-[3.4rem] px-7 text-[1.02rem]",
+  md: "h-11 rounded-full px-5 text-[0.95rem]",
+  lg: "h-[3.4rem] rounded-2xl px-7 text-[1.02rem] sm:rounded-full",
 };
 
 export function buttonClasses(variant: Variant = "primary", size: Size = "md") {

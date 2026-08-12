@@ -58,8 +58,9 @@
   --ease-revela: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* Layout */
-  --spacing-section: clamp(4.5rem, 9vw, 8rem);
+  /* Layout — tighter floor keeps the mobile story moving; ≥ ~890px viewports
+     resolve to 9vw/8rem either way, so desktop rhythm is untouched. */
+  --spacing-section: clamp(3.5rem, 9vw, 8rem);
 }
 
 /* ---------------------------------------------------------------------
@@ -364,7 +365,11 @@ body {
     color-mix(in srgb, var(--color-sage-400) 55%, transparent);
   opacity: 0;
   pointer-events: none;
-  animation: revela-headline-sweep 1.15s var(--ease-inout) 0.75s both;
+}
+/* Sweep runs only once the headline's Reveal wrapper is actually in view —
+   above the fold that's right after hydration, so the load feel is kept. */
+.js .reveal[data-inview="true"] .headline-playhead {
+  animation: revela-headline-sweep 1.15s var(--ease-inout) 0.45s both;
 }
 @keyframes revela-strike-draw {
   from {

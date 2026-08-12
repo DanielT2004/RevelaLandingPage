@@ -50,18 +50,25 @@ export function HowItWorks() {
         {/* Steps land 01 → 02 → 03 rather than together: the three columns
             enter the viewport at the same moment, so the sequencing has to
             come from the delay, and it has to be big enough to read. */}
-        <div className="grid gap-10 md:grid-cols-3 md:gap-8">
+        {/* pl-8 clears the mobile vertical rail (drawn by StepsScrubber);
+            each step gets a node on it so the stack reads as a timeline. */}
+        <div className="grid gap-8 pl-8 md:grid-cols-3 md:gap-8 md:pl-0">
           {HOW_IT_WORKS.steps.map((step, i) => (
-            <StepCard
-              key={step.n}
-              n={step.n}
-              title={step.title}
-              body={step.body}
-              caps={step.caps}
-              delay={i * 260}
-            >
-              {visuals[i]}
-            </StepCard>
+            <div key={step.n} className="relative">
+              <span
+                aria-hidden
+                className="absolute -left-8 top-2 h-2.5 w-2.5 rounded-full bg-cream ring-2 ring-terracotta md:hidden"
+              />
+              <StepCard
+                n={step.n}
+                title={step.title}
+                body={step.body}
+                caps={step.caps}
+                delay={i * 260}
+              >
+                {visuals[i]}
+              </StepCard>
+            </div>
           ))}
         </div>
       </StepsScrubber>
