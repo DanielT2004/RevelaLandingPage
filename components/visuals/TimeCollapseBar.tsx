@@ -9,8 +9,9 @@ import { useInView } from "@/components/motion/useInView";
  * as time saved. Snaps to the collapsed state under reduced motion (transitions
  * and their delays are neutralized globally).
  *
- * `delayMs` holds the collapse back so it can be sequenced after neighbouring
- * motion — same idea as CountUp's `play` escape hatch.
+ * `delayMs` nudges the collapse behind neighbouring motion — same idea as
+ * CountUp's `play` escape hatch. Keep it short: the bar has to be moving by
+ * the time a scrolling thumb carries it past.
  */
 export function TimeCollapseBar({
   delayMs = 0,
@@ -23,7 +24,12 @@ export function TimeCollapseBar({
   showLabels?: boolean;
   className?: string;
 }) {
-  const { ref, inView } = useInView<HTMLDivElement>({ amount: 0.5 });
+  // Fire early: the bar is short, so the hook's default -10% bottom margin
+  // would hold it back nearly a full swipe-beat.
+  const { ref, inView } = useInView<HTMLDivElement>({
+    amount: 0.3,
+    rootMargin: "0px",
+  });
   const delay = { transitionDelay: `${delayMs}ms` };
 
   return (
@@ -59,7 +65,7 @@ export function TimeCollapseBar({
 
       <div className="relative h-4 w-full overflow-hidden rounded-full bg-sage/15">
         <div
-          className="absolute inset-y-0 left-0 rounded-full bg-terracotta transition-[width] duration-[1400ms] ease-[var(--ease-inout)]"
+          className="absolute inset-y-0 left-0 rounded-full bg-terracotta transition-[width] duration-[900ms] ease-[var(--ease-inout)]"
           style={{ width: inView ? "7%" : "100%", ...delay }}
         />
       </div>

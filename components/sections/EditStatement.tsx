@@ -69,10 +69,11 @@ export function EditStatement() {
         <div className="lg:col-start-1 lg:row-start-2 lg:self-start">
           {/* The payoff for the edit above: the same job, collapsed. The
               numbers state the claim; the bar animates it — on its own a
-              shrinking bar never says what it shrank from. Held back until
-              the headline has finished cutting itself (the last mark,
-              .stmt-underlay, lands at ~1.7s). Dark inset on cream, matching
-              StepCard's panel so it reads as the same family of object. */}
+              shrinking bar never says what it shrank from. Starts during the
+              headline's strike beat rather than after the whole sequence, so
+              it's already moving before a scrolling thumb can pass it. Dark
+              inset on cream, matching StepCard's panel so it reads as the
+              same family of object. */}
           <Reveal delay={160}>
             <div className="mt-10 max-w-xl rounded-3xl border border-charcoal/8 bg-charcoal-900 p-6 shadow-[0_24px_50px_-30px_rgba(27,24,21,0.6)] sm:p-7">
               <div className="flex items-center justify-center gap-6 sm:gap-10">
@@ -113,7 +114,7 @@ export function EditStatement() {
               </div>
 
               {/* showLabels off — the row above already names both sides. */}
-              <TimeCollapseBar className="mt-8" delayMs={1800} showLabels={false} />
+              <TimeCollapseBar className="mt-8" delayMs={350} showLabels={false} />
             </div>
           </Reveal>
         </div>

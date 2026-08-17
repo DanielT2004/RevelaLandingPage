@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   const limit = rateLimit(`waitlist:${clientIp(req)}`);
   if (!limit.ok) {
     return NextResponse.json(
-      { ok: false, message: "Too many attempts — please try again shortly." },
+      { ok: false, message: FORM_COPY.rateLimited },
       { status: 429, headers: { "Retry-After": String(limit.retryAfter ?? 60) } }
     );
   }

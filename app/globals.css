@@ -162,6 +162,62 @@ body {
 }
 
 /* ---------------------------------------------------------------------
+   Pinned steps (How-It-Works) — the section pins for a stretch of scroll
+   while PinnedSteps deals the cards out via data-state. Geometry only
+   exists under `.js`, so no-JS keeps the plain stacked flow. Each card's
+   parts reuse the .reveal recipe with a per-part --pin-delay stagger.
+   --------------------------------------------------------------------- */
+.js .pin-outer {
+  height: 260svh;
+}
+.js .pin-inner {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100svh; /* svh: stable under mobile chrome show/hide */
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 4rem; /* keep centred content clear of the fixed nav */
+}
+.js .pin-part {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s var(--ease-revela),
+    transform 0.6s var(--ease-revela);
+  transition-delay: var(--pin-delay, 0ms);
+}
+.js .pin-card[data-state="active"] .pin-part,
+.js .pin-card[data-state="past"] .pin-part {
+  opacity: 1;
+  transform: none;
+}
+/* Mobile: three full cards don't fit one viewport, so they overlay in a
+   single cell and swap — past cards lift out as one block. */
+@media (width < 48rem) {
+  .js .pin-grid > .pin-card {
+    grid-area: 1 / 1;
+  }
+  .js .pin-card {
+    transition:
+      opacity 0.35s var(--ease-revela),
+      transform 0.35s var(--ease-revela);
+  }
+  .js .pin-card[data-state="past"] {
+    opacity: 0;
+    transform: translateY(-12px);
+    pointer-events: none;
+  }
+  .js .pin-card[data-state="future"] {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .js .pin-card[data-state="past"] .pin-part {
+    transition-delay: 0ms;
+  }
+}
+
+/* ---------------------------------------------------------------------
    Marquee — infinite horizontal scroll of a duplicated track.
    --------------------------------------------------------------------- */
 @keyframes revela-marquee {
@@ -313,6 +369,26 @@ body {
     transform: none !important;
     transition: none !important;
   }
+  /* Pinned steps degrade to the plain static section: no pin, no overlay,
+     every card and part fully visible in normal flow. */
+  .js .pin-outer {
+    height: auto !important;
+  }
+  .js .pin-inner {
+    position: static !important;
+    display: block !important;
+    height: auto !important;
+    padding-top: 0 !important;
+  }
+  .js .pin-part,
+  .js .pin-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .js .pin-grid > .pin-card {
+    grid-area: auto !important;
+  }
   .marquee-track,
   [data-loop] {
     animation: none !important;
@@ -425,13 +501,13 @@ body {
   transform-origin: left center;
 }
 .stmt-play .stmt-pennant {
-  animation: revela-pennant-pop 0.4s var(--ease-revela) 0.3s both;
+  animation: revela-pennant-pop 0.35s var(--ease-revela) 0.15s both;
 }
 .stmt-play .stmt-strike {
-  animation: revela-strike-draw 0.3s var(--ease-inout) 0.85s both;
+  animation: revela-strike-draw 0.3s var(--ease-inout) 0.5s both;
 }
 .stmt-play .stmt-underlay {
-  animation: revela-underlay-slide 0.35s var(--ease-inout) 1.35s both;
+  animation: revela-underlay-slide 0.35s var(--ease-inout) 0.85s both;
 }
 
 /* Swipe-deck hint arrows — a gentle horizontal nudge loop pointing the way. */

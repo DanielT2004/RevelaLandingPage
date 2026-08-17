@@ -83,7 +83,8 @@ export default function OpengraphImage() {
               fontFamily: "system-ui, sans-serif",
             }}
           >
-            Reviews · Shop promos · food · vlogs. About 10 minutes, not 3 hours.
+            Reviews · Shop promos · food · vlogs. Around 10 minutes of work
+            instead of an evening.
           </div>
         </div>
 

@@ -83,8 +83,18 @@ export function SpineStrip({
             animate={{ opacity: 0, x: 118, y: -30, scale: 0.15 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.45, ease: "easeIn" }}
-            className="pointer-events-none absolute left-1/2 top-8 z-10 h-9 w-6 rounded-[0.3rem] border border-terracotta/60 bg-charcoal-700"
-          />
+            className="pointer-events-none absolute left-1/2 top-8 z-10 h-9 w-6 overflow-hidden rounded-[0.3rem] border border-terracotta/60 bg-charcoal-700"
+          >
+            {clips[decisions.length - 1]?.photo && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={clips[decisions.length - 1].photo}
+                alt=""
+                draggable={false}
+                className="h-full w-full select-none object-cover"
+              />
+            )}
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -101,10 +111,19 @@ export function SpineStrip({
                 animate={{ y: 0, scale: 1, opacity: 1 }}
                 transition={SPRING}
                 className={cn(
-                  "relative h-11 w-7 rounded-[0.3rem] border bg-charcoal-700",
+                  "relative h-11 w-7 overflow-hidden rounded-[0.3rem] border bg-charcoal-700",
                   isHook ? "border-terracotta" : "border-cream/15"
                 )}
               >
+                {clips[clipIdx].photo && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={clips[clipIdx].photo}
+                    alt=""
+                    draggable={false}
+                    className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover"
+                  />
+                )}
                 <div className="absolute inset-0 rounded-[0.3rem] bg-gradient-to-br from-cream/[0.09] to-transparent" />
                 {isHook && (
                   <span className="absolute -top-[0.95rem] left-0 whitespace-nowrap rounded-[0.25rem] bg-terracotta px-1 py-px font-mono text-[0.45rem] font-semibold uppercase tracking-[0.08em] text-cream">
@@ -140,8 +159,17 @@ export function SpineStrip({
               initial={{ y: -12, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={SPRING}
-              className="relative h-8 w-6 rounded-[0.3rem] border border-ochre/60 bg-charcoal-700"
+              className="relative h-8 w-6 overflow-hidden rounded-[0.3rem] border border-ochre/60 bg-charcoal-700"
             >
+              {clips[clipIdx].photo && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={clips[clipIdx].photo}
+                  alt=""
+                  draggable={false}
+                  className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover"
+                />
+              )}
               <div className="absolute inset-0 rounded-[0.3rem] bg-gradient-to-br from-cream/[0.09] to-transparent" />
             </motion.div>
           ))}

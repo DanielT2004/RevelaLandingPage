@@ -2,7 +2,7 @@
   "name": "revela",
   "version": "0.1.0",
   "private": true,
-  "description": "Revela — landing page for the AI video editor that turns raw food footage into a post-ready TikTok in minutes.",
+  "description": "Revela landing page. The AI video editor that turns raw food footage into a post-ready TikTok in minutes.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

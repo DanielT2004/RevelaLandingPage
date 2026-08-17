@@ -12,6 +12,10 @@ import { Icon, type IconName } from "@/components/visuals/icons";
  * wrapped individually rather than the card as a whole, so the step assembles
  * panel-first instead of popping in at once — and so the outer and inner
  * slide transforms don't compound.
+ *
+ * `animate={false}` swaps the in-view Reveals for inert `.pin-part` wrappers
+ * (same recipe in CSS) so a parent — the pinned How-It-Works — can trigger
+ * the assembly itself via `.pin-card[data-state]` instead of the viewport.
  */
 export function StepCard({
   n,
@@ -19,6 +23,7 @@ export function StepCard({
   body,
   caps,
   delay = 0,
+  animate = true,
   children,
   className,
 }: {
@@ -27,19 +32,32 @@ export function StepCard({
   body: string;
   caps?: readonly { icon: IconName; label: string }[];
   delay?: number;
+  animate?: boolean;
   children: React.ReactNode;
   className?: string;
 }) {
+  const Part = ({ d, children: part }: { d: number; children: React.ReactNode }) =>
+    animate ? (
+      <Reveal delay={d}>{part}</Reveal>
+    ) : (
+      <div
+        className="pin-part"
+        style={{ "--pin-delay": `${d}ms` } as React.CSSProperties}
+      >
+        {part}
+      </div>
+    );
+
   return (
     <div className={cn("flex flex-col", className)}>
       {/* Fixed panel height keeps all three step titles on the same baseline,
           regardless of how tall each mock is. */}
-      <Reveal delay={delay}>
+      <Part d={delay}>
         <div className="relative mb-6 flex min-h-[17rem] items-center rounded-2xl border border-charcoal/8 bg-charcoal-900 p-3.5 shadow-[0_24px_50px_-30px_rgba(27,24,21,0.6)]">
           {children}
         </div>
-      </Reveal>
-      <Reveal delay={delay + 130}>
+      </Part>
+      <Part d={delay + 130}>
         <div className="flex items-baseline gap-3">
           <span className="tnum font-mono text-sm font-semibold text-terracotta-600">
             {n}
@@ -48,14 +66,14 @@ export function StepCard({
             {title}
           </h3>
         </div>
-      </Reveal>
-      <Reveal delay={delay + 190}>
+      </Part>
+      <Part d={delay + 190}>
         <p className="mt-2 max-w-xs text-[0.98rem] leading-relaxed text-warmgray">
           {body}
         </p>
-      </Reveal>
+      </Part>
       {caps && caps.length > 0 && (
-        <Reveal delay={delay + 250}>
+        <Part d={delay + 250}>
           <ul className="mt-4 space-y-2">
             {caps.map((cap) => (
               <li key={cap.label} className="flex items-center gap-2.5">
@@ -70,7 +88,7 @@ export function StepCard({
               </li>
             ))}
           </ul>
-        </Reveal>
+        </Part>
       )}
     </div>
   );

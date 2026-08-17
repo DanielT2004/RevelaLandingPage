@@ -54,7 +54,7 @@ export const HERO = {
     "Revela watches every second, finds your hook, cuts the dead air, lays your B-roll, and orders it the way your genre works. Then you approve every cut. About 10 minutes, not 3 hours.",
   /** One-line mobile promise — the full subhead reads as a wall in one column. */
   subheadShort:
-    "Revela finds your hook, cuts the dead air, lays your B-roll — you approve every cut. About 10 minutes, not 3 hours.",
+    "Revela finds your hook, cuts the dead air, and lays your B-roll. You approve every cut, and it takes about 10 minutes.",
   /** Above-the-fold differentiators (vs. auto-editors you can't steer). */
   differentiators: [
     { icon: "swipe", label: "You approve every cut" },
@@ -107,7 +107,7 @@ export const HOW_IT_WORKS = {
     {
       n: "02",
       title: "Get a first cut",
-      body: "It finds your hook, trims the slow parts, and proposes a finished vertical cut, and you review the plan before anything’s final.",
+      body: "It finds your hook, trims the slow parts, and proposes a finished vertical cut. You review the plan before anything’s final.",
       caps: [
         { icon: "audio", label: "Talking bits into voiceover" },
         { icon: "fingerprint", label: "Learns your style" },
@@ -138,7 +138,7 @@ export const NICHES = {
   eyebrow: "Who it’s for",
   headline: "Whatever you film, it cuts like you.",
   subhead:
-    "Every genre builds its videos differently. A review argues, a promo sells, a vlog flows. Revela knows the structure of yours. Pick your lane.",
+    "Every genre builds its videos differently. A review has to land a verdict; a promo has to get to the product. Revela knows the structure of yours.",
   chips: {
     flagship: "Flagship · live",
     live: "Live at launch",
@@ -233,6 +233,8 @@ export type DemoClip = {
   verdict: ClipVerdict;
   tone: ClipTone;
   reason: string;
+  /** Real footage frame (public path). Omitted → ClipArt line-art fallback. */
+  photo?: string;
 };
 export type DemoDeck = { tab: string; project: string; clips: readonly DemoClip[] };
 
@@ -243,7 +245,7 @@ export const TRY_SWIPE = {
     "This is the app’s real Sort stage. Every clip arrives with Revela’s read on it. Swipe right to keep, left to cut, or send it to your hook or B-roll. Nothing’s deleted. Cuts wait in the tray.",
   /** One-line mobile version — on mobile the deck sits right above this. */
   subheadShort:
-    "The app’s real Sort stage. Swipe right to keep, left to cut. Nothing’s deleted — cuts wait in the tray.",
+    "The app’s real Sort stage. Swipe right to keep, left to cut. Nothing’s deleted, and cuts wait in the tray.",
   switcherHint: "Pick a shoot",
   stages: ["Sort", "Arrange", "Polish"],
   trayLabel: "Tray",
@@ -265,15 +267,18 @@ export const TRY_SWIPE = {
   decks: {
     food: {
       tab: "Food",
-      project: "Pad thai, take 2",
+      project: "Ethiopian spot review",
+      // Real frames from the posted Ethiopian review. The "re-take" clip
+      // deliberately reuses the intro frame — it plays as the duplicate take.
       clips: [
         {
-          label: "Sizzle close-up",
+          label: "Kitchen sizzle close-up",
           scene: "Cooking",
           dur: 6,
           verdict: "Strong keep",
           tone: "sage",
           reason: "Loud sizzle, instant motion. This is the shot that stops the scroll.",
+          photo: "/footage/ethiopian-cooking.jpg",
         },
         {
           label: "Long intro ramble",
@@ -281,15 +286,17 @@ export const TRY_SWIPE = {
           dur: 41,
           verdict: "Suggested cut",
           tone: "terracotta",
-          reason: "32 seconds pass before the food shows up.",
+          reason: "41 seconds of hello before anyone takes a bite.",
+          photo: "/footage/ethiopian-intro.jpg",
         },
         {
-          label: "The plating reveal",
+          label: "The platter reveal",
           scene: "Plating",
           dur: 9,
           verdict: "Keeper",
           tone: "sage",
           reason: "A clean payoff shot that earns the watch-through.",
+          photo: "/footage/ethiopian-platter.jpg",
         },
         {
           label: "Dead air / re-take",
@@ -298,6 +305,7 @@ export const TRY_SWIPE = {
           verdict: "Suggested cut",
           tone: "terracotta",
           reason: "A re-take of clip 02, with long pauses.",
+          photo: "/footage/ethiopian-intro.jpg",
         },
         {
           label: "First bite reaction",
@@ -306,6 +314,7 @@ export const TRY_SWIPE = {
           verdict: "Your call",
           tone: "ochre",
           reason: "Great genuine reaction, but it repeats the payoff.",
+          photo: "/footage/ethiopian-rating.jpg",
         },
       ],
     },
@@ -389,7 +398,7 @@ export const TRY_SWIPE = {
           dur: 7,
           verdict: "Keeper",
           tone: "sage",
-          reason: "The claim, shown instead of said. The highest-converting beat.",
+          reason: "You show the claim instead of saying it. Nothing else lands as hard.",
         },
         {
           label: "“Link in bio” CTA",
@@ -397,7 +406,7 @@ export const TRY_SWIPE = {
           dur: 6,
           verdict: "Strong keep",
           tone: "sage",
-          reason: "Protected. The CTA is the video’s whole job.",
+          reason: "Protected. This is the line the whole video is built toward.",
         },
       ],
     },
@@ -418,7 +427,7 @@ export const SOCIAL_PROOF = {
   eyebrow: "Early access",
   headline: "Join the first creators trying Revela.",
   subhead:
-    "Real reviews land here soon. For now these are placeholders. The seats are not.",
+    "Real reviews land here soon. For now these are placeholders, but the waitlist is real.",
   /**
    * PLACEHOLDER testimonials — do not ship these brackets.
    * Replace `quote`, `name`, `handle` with real, permissioned creator quotes.
@@ -478,8 +487,9 @@ export const FOOTER = {
 export const FORM_COPY = {
   successTitle: "You’re on the list.",
   successBody: "We’ll email you the moment early access opens.",
-  duplicate: "You’re already on the list ✓",
+  duplicate: "You’re already on the list.",
   invalidEmail: "That email doesn’t look right.",
+  rateLimited: "Too many attempts. Try again in a minute.",
   serverError: "Something went wrong. Try again.",
   unconfigured:
     "The waitlist isn’t connected yet. Add your Supabase keys to start collecting emails.",

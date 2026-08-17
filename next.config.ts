@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // The site ships zero external raster images (all visuals are CSS/SVG/DOM),
-  // so no remotePatterns are needed. Keep the surface small and fast.
+  // The only raster images are pre-compressed local frames in public/footage
+  // (served as plain <img>), so no remotePatterns or image config is needed.
   poweredByHeader: false,
 };
 

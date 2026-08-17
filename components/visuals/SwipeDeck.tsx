@@ -169,12 +169,24 @@ function DeckCard({
       >
         {/* Hero — the clip preview, like the app's looping player */}
         <div className="relative flex-1 overflow-hidden bg-charcoal-900">
-          {/* The footage itself — a close-up of a person, cropped by the panel
-              edges, so the card reads as a real clip and not an empty player.
-              Only the top card loops. Drawn BEFORE the wash: the art uses
-              charcoal-900 fills to occlude, which must match the bare panel. */}
+          {/* The footage itself. Clips with a real frame render it directly;
+              the rest fall back to the line-art figure. Drawn BEFORE the wash:
+              the art uses charcoal-900 fills to occlude, which must match the
+              bare panel. */}
           <div className="absolute inset-0">
-            <ClipArt scene={clip.scene} genre={genre} animate={isTop} />
+            {clip.photo ? (
+              // draggable={false} + pointer-events-none: the browser's native
+              // image drag would otherwise swallow the card's drag gesture.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={clip.photo}
+                alt=""
+                draggable={false}
+                className="pointer-events-none h-full w-full select-none object-cover"
+              />
+            ) : (
+              <ClipArt scene={clip.scene} genre={genre} animate={isTop} />
+            )}
           </div>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cream/[0.08] to-transparent" />
           {/* Top scrim: the head now sits behind the verdict and HOOK pills. */}
@@ -210,16 +222,16 @@ function DeckCard({
               className="pointer-events-none absolute inset-0 z-10"
               aria-hidden
             >
-              <span className="absolute right-2.5 top-2.5 rounded-full bg-charcoal-900/60 px-2 py-0.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.08em] text-cream/90">
+              <span className="absolute right-2.5 top-2.5 rounded-full bg-charcoal-900/75 px-2 py-0.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.08em] text-cream/90">
                 ↑ {TRY_SWIPE.hookLabel}
               </span>
-              <span className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-charcoal-900/60 px-2 py-0.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.08em] text-cream/90">
+              <span className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-charcoal-900/75 px-2 py-0.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.08em] text-cream/90">
                 ← {TRY_SWIPE.cutLabel}
               </span>
-              <span className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-charcoal-900/60 px-2 py-0.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.08em] text-cream/90">
+              <span className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-charcoal-900/75 px-2 py-0.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.08em] text-cream/90">
                 {TRY_SWIPE.keepLabel} →
               </span>
-              <span className="absolute bottom-9 left-1/2 -translate-x-1/2 rounded-full bg-charcoal-900/60 px-2 py-0.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.08em] text-cream/90">
+              <span className="absolute bottom-9 left-1/2 -translate-x-1/2 rounded-full bg-charcoal-900/75 px-2 py-0.5 font-mono text-[0.5rem] font-bold uppercase tracking-[0.08em] text-cream/90">
                 ↓ {TRY_SWIPE.brollLabel}
               </span>
             </motion.div>
@@ -460,7 +472,7 @@ export function SwipeDeck({
           Gone the moment they interact. */}
       {!interacted && !done && (
         <div className="pointer-events-none absolute -top-3 left-1/2 z-30 -translate-x-1/2 animate-pulse whitespace-nowrap rounded-full bg-terracotta px-3 py-1 font-mono text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-cream shadow-[0_8px_20px_-8px_rgba(181,101,74,0.8)]">
-        👆 {TRY_SWIPE.tryIt}
+        {TRY_SWIPE.tryIt}
         </div>
       )}
       <PhoneFrame>
@@ -595,7 +607,7 @@ export function SwipeDeck({
                   {TRY_SWIPE.doneTitle}
                 </p>
                 <p className="text-[0.8rem] leading-relaxed text-cream/60">
-                  All {CLIPS.length} clips sorted — your cut is ~{cutSeconds}s.
+                  All {CLIPS.length} clips sorted. Your cut is ~{cutSeconds}s.
                 </p>
                 <div className="flex flex-wrap justify-center gap-1.5 font-mono text-[0.55rem] uppercase tracking-[0.08em]">
                   <span className="rounded-full bg-sage/20 px-2 py-1 text-sage-400">

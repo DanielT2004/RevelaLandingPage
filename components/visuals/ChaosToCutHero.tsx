@@ -28,16 +28,22 @@ type Tile = {
   chaos: { x: number; y: number };
   /** Position in the final strip (hook = 0); null = cut. */
   slot: number | null;
+  /** Real footage frame; omit to fall back to the abstract dark tile. */
+  img?: string;
+  /** Degrade the frame (cut tiles reuse a keeper's frame as a "bad take"). */
+  degrade?: boolean;
 };
 
 // Hand-authored chaos layout, ported from the app's ChaosToCutHero.
+// Frames are from the posted Miya Miya video; the two cut tiles reuse
+// keeper frames degraded, playing as duplicate/botched takes.
 const TILES: Tile[] = [
-  { verdict: "keep", rot: -13, chaos: { x: -104, y: -30 }, slot: 1 },
-  { verdict: "hook", rot: 9, chaos: { x: -34, y: 24 }, slot: 0 },
-  { verdict: "cut", rot: -6, chaos: { x: 22, y: -38 }, slot: null },
-  { verdict: "keep", rot: 14, chaos: { x: 70, y: 20 }, slot: 2 },
-  { verdict: "keep", rot: -9, chaos: { x: 122, y: -20 }, slot: 3 },
-  { verdict: "cut", rot: 7, chaos: { x: -70, y: 44 }, slot: null },
+  { verdict: "keep", rot: -13, chaos: { x: -104, y: -30 }, slot: 1, img: "/footage/miya-made.jpg" },
+  { verdict: "hook", rot: 9, chaos: { x: -34, y: 24 }, slot: 0, img: "/footage/miya-bite.jpg" },
+  { verdict: "cut", rot: -6, chaos: { x: 22, y: -38 }, slot: null, img: "/footage/miya-reaction.jpg", degrade: true },
+  { verdict: "keep", rot: 14, chaos: { x: 70, y: 20 }, slot: 2, img: "/footage/miya-reaction.jpg" },
+  { verdict: "keep", rot: -9, chaos: { x: 122, y: -20 }, slot: 3, img: "/footage/miya-stand.jpg" },
+  { verdict: "cut", rot: 7, chaos: { x: -70, y: 44 }, slot: null, img: "/footage/miya-stand.jpg", degrade: true },
 ];
 
 /** Final filmstrip x for a slot (tiles 56px wide, 22px gaps, centered). */
@@ -310,6 +316,18 @@ export function ChaosToCutHero() {
                     "shadow-[0_30px_50px_-18px_rgba(27,24,21,0.65)] transition-shadow duration-500"
                 )}
               >
+                {t.img && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={t.img}
+                    alt=""
+                    draggable={false}
+                    className={cn(
+                      "pointer-events-none absolute inset-0 h-full w-full select-none object-cover",
+                      t.degrade && "blur-[1px] brightness-[0.7] saturate-50"
+                    )}
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-br from-cream/[0.09] to-transparent" />
                 <Waveform bars={10} className="absolute inset-x-1.5 bottom-1.5 h-2.5 text-cream/20" />
                 {/* Settled hook tile gets a breathing play badge. */}
